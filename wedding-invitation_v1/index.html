@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Carmel &amp; Andrew — Wedding Invitation</title>
+<meta name="theme-color" content="#14213a">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&family=Noto+Sans+Tamil:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#14213a;--bg2:#0d1626;--gold:#e8a317;--gold2:#f6d27a;--ivory:#fbf3e2;--rose:#e08a98;--muted:#b9c3d6;
+--serif:"Cormorant Garamond","Noto Sans Tamil",Georgia,serif;--sans:"Jost","Noto Sans Tamil",system-ui,sans-serif;box-sizing:border-box;
+padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14213a;--bg2:#0d1626}}
+:root[data-theme="dark"]{--bg:#14213a;--bg2:#0d1626}
+*{box-sizing:border-box;margin:0}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--ivory);font-family:var(--sans);line-height:1.7;overflow-x:hidden}
+body.locked{height:100vh;overflow:hidden}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.2}
+section{padding:72px 24px;max-width:560px;margin:0 auto;text-align:center}
+section+section{border-top:1px solid rgba(232,163,23,.25)}
+h2{font-size:2.1rem;color:var(--gold2);margin-bottom:12px}
+p{color:var(--muted)}
+.amp{color:var(--rose);font-style:italic;font-weight:500}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;padding-top:88px}
+.tag{font:600 1.5rem var(--serif);color:var(--gold2)}
+.hosts{font:600 1.35rem var(--serif);color:var(--ivory)}
+.who{font:600 clamp(2.1rem,9vw,3rem) var(--serif);color:var(--ivory);margin-top:6px}
+.q{font-size:.95rem}
+.weds{font:italic 500 1.4rem var(--serif);color:var(--rose)}
+/* language switch */
+.lang{position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);right:12px;z-index:60;display:flex;border:1px solid var(--gold);border-radius:999px;overflow:hidden;background:var(--bg2)}
+.lang button{padding:8px 14px;font-size:.9rem;background:transparent;color:var(--gold2);border-radius:0}
+.lang button[aria-pressed=true]{background:var(--gold);color:#2a1a00}
+/* cover */
+.cover{position:fixed;inset:0;z-index:50;display:flex}
+.cover .half{flex:1;background:var(--bg2);transition:transform 1.4s cubic-bezier(.7,0,.2,1);
+background-image:radial-gradient(circle at 50% 50%,rgba(232,163,23,.12) 0 2px,transparent 3px);background-size:28px 28px}
+.cover .l{border-right:2px solid var(--gold)}
+.cover.open .l{transform:translateX(-101%)}
+.cover.open .r{transform:translateX(101%)}
+.cover.gone{display:none}
+.seal{position:absolute;inset:0;margin:auto;width:min(80vw,320px);height:fit-content;text-align:center;z-index:2;transition:opacity .5s}
+.cover.open .seal{opacity:0;pointer-events:none}
+.seal h1{font-size:clamp(2.2rem,10vw,3.2rem);margin-top:14px}
+.seal p{margin:10px 0 24px}
+button,.btn{font:500 1rem var(--sans);cursor:pointer;border:0;border-radius:999px;padding:13px 26px;background:var(--gold);color:#2a1a00;text-decoration:none;display:inline-block}
+button:focus-visible,.btn:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--gold2);outline-offset:3px}
+.ghost{background:transparent;color:var(--gold2);border:1.5px solid var(--gold)}
+/* scratch */
+.date-wrap{position:relative;margin:24px auto;width:100%;max-width:340px;height:170px;border-radius:18px;overflow:hidden;background:var(--ivory);color:#2a1a00;display:flex;flex-direction:column;justify-content:center}
+.date-wrap .d{font:600 3.4rem var(--serif);color:var(--bg)}
+.date-wrap .m{font-size:1.05rem;color:#5b4318}
+.date-wrap canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;transition:opacity .8s}
+.date-wrap canvas.done{opacity:0;pointer-events:none}
+.count{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
+.count div{border:1px solid rgba(232,163,23,.4);border-radius:14px;padding:14px 4px}
+.count b{display:block;font:600 2rem var(--serif);color:var(--gold2)}
+.count span{font-size:.85rem;color:var(--muted)}
+/* events */
+.ev{background:var(--bg2);border-radius:16px;padding:24px 20px;margin-top:20px}
+.ev h3{font-size:1.5rem;color:var(--gold2)}
+.ev .t{color:var(--ivory);margin:6px 0}
+.ev .v{font:600 1.4rem var(--serif);color:var(--ivory)}
+.ev .a{font-size:.95rem;margin:4px 0 16px}
+.row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+/* form */
+form{display:grid;gap:18px;text-align:left;margin-top:22px}
+label{display:grid;gap:6px;font-size:.95rem}
+input[type=text],select{font:inherit;padding:13px 14px;border-radius:10px;border:1px solid rgba(232,163,23,.5);background:var(--bg2);color:var(--ivory)}
+.choice{display:flex;gap:10px}
+.choice label{flex:1;display:block}
+.choice input{position:absolute;opacity:0}
+.choice span{display:block;text-align:center;padding:13px 8px;border-radius:10px;border:1px solid rgba(232,163,23,.5);cursor:pointer}
+.choice input:checked+span{background:var(--gold);color:#2a1a00}
+.choice input:focus-visible+span{outline:3px solid var(--gold2);outline-offset:2px}
+.note{font-size:.9rem;margin-top:14px;min-height:1.4em}
+footer{padding:48px 24px 72px;text-align:center;border-top:1px solid rgba(232,163,23,.25)}
+footer p{margin-top:6px}
+footer .sig{font:600 1.5rem var(--serif);color:var(--ivory)}
+[hidden]{display:none!important}
+.heroPic{width:190px;height:190px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);box-shadow:0 0 0 6px rgba(232,163,23,.18);margin-bottom:6px}
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:22px}
+.gallery img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:12px;border:1px solid rgba(232,163,23,.4);cursor:zoom-in;background:var(--bg2)}
+.gallery img:first-child:nth-last-child(odd){grid-column:1/-1;aspect-ratio:4/3}
+.lb{position:fixed;inset:0;z-index:80;background:rgba(5,9,16,.92);display:flex;align-items:center;justify-content:center;padding:16px;cursor:zoom-out}
+.lb img{max-width:100%;max-height:100%;border-radius:10px}
+.music{position:fixed;left:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:60;width:46px;height:46px;padding:0;font-size:1.3rem;line-height:46px;text-align:center;background:var(--bg2);color:var(--gold2);border:1.5px solid var(--gold)}
+.music[aria-pressed=true]{background:var(--gold);color:#2a1a00}
+.music[aria-pressed=false]{text-decoration:line-through;opacity:.8}
+@media (prefers-reduced-motion:reduce){.cover .half{transition-duration:.01s}}
+</style>
+</head>
+<body class="locked">
+
+<div class="lang" role="group" aria-label="Language">
+  <button type="button" data-lang="en" aria-pressed="true">English</button>
+  <button type="button" data-lang="ta" aria-pressed="false">தமிழ்</button>
+</div>
+
+<button type="button" class="music" id="musicBtn" aria-pressed="false" aria-label="Toggle background music" hidden>♪</button>
+<audio id="bgm" loop preload="none"></audio>
+<div class="lb" id="lb" hidden><img id="lbImg" alt=""></div>
+
+<div class="cover" id="cover">
+  <div class="half l"></div><div class="half r"></div>
+  <div class="seal">
+    <svg width="34" height="46" viewBox="0 0 36 48" aria-hidden="true"><path d="M14 0h8v14h14v8H22v26h-8V22H0v-8h14z" fill="#e8a317"/></svg>
+    <p data-k="openP"></p>
+    <h1 data-k="cn"></h1>
+    <p style="margin-top:14px">13 · 12 · 2026</p>
+    <button id="openBtn" data-k="openBtn"></button>
+  </div>
+</div>
+
+<main>
+  <section class="hero">
+    <img class="heroPic" id="heroPic" alt="Carmel and Andrew" hidden>
+    <p class="tag" data-k="tag"></p>
+    <p class="q" data-k="ref"></p>
+    <p class="hosts" data-k="hosts"></p>
+    <p data-k="intro"></p>
+    <p class="who" data-k="bride"></p>
+    <p class="q" data-k="brideQ"></p>
+    <p class="weds" data-k="weds"></p>
+    <p class="who" data-k="groom"></p>
+    <p class="q" data-k="groomQ"></p>
+    <p data-k="groomPar"></p>
+    <p data-k="groomEnd"></p>
+  </section>
+
+  <section>
+    <h2 data-k="saveH"></h2>
+    <p data-k="saveP"></p>
+    <div class="date-wrap" id="dateWrap">
+      <div class="d">13</div>
+      <div class="m" data-k="dMeta"></div>
+      <canvas id="scratch" aria-label="Scratch to reveal the wedding date"></canvas>
+    </div>
+    <div class="count">
+      <div><b id="cd">--</b><span data-k="days"></span></div>
+      <div><b id="ch">--</b><span data-k="hours"></span></div>
+      <div><b id="cm">--</b><span data-k="mins"></span></div>
+      <div><b id="cs">--</b><span data-k="secs"></span></div>
+    </div>
+  </section>
+
+  <section id="gallerySec" hidden>
+    <h2 data-k="galH"></h2>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <section>
+    <h2 data-k="venueH"></h2>
+    <div class="ev">
+      <h3 data-k="e1t"></h3>
+      <p class="t" data-k="e1time"></p>
+      <p class="v" data-k="e1v"></p>
+      <p class="a" data-k="e1a"></p>
+      <div class="row">
+        <a class="btn" target="_blank" rel="noopener" data-k="map" href="https://www.google.com/maps/search/?api=1&query=Holy+Family+Shrine+Kanakkan+Chathram+Chennai"></a>
+        <a class="btn ghost" id="calBtn" target="_blank" rel="noopener" data-k="cal"></a>
+      </div>
+    </div>
+    <div class="ev">
+      <h3 data-k="e2t"></h3>
+      <p class="t" data-k="e2time"></p>
+      <p class="v" data-k="e2v"></p>
+      <p class="a" data-k="e2a"></p>
+      <div class="row">
+        <a class="btn" target="_blank" rel="noopener" data-k="map" href="https://www.google.com/maps/search/?api=1&query=Aanur+Grand+MKB+Nagar+Vyasarpadi+Chennai"></a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-k="rsvpH"></h2>
+    <p data-k="rsvpP"></p>
+    <form id="rsvp">
+      <label><span data-k="lName"></span>
+        <input type="text" id="gName" required autocomplete="name">
+      </label>
+      <div>
+        <p style="margin-bottom:6px;color:var(--ivory)" data-k="lAtt"></p>
+        <div class="choice">
+          <label><input type="radio" name="att" value="yes" checked><span data-k="yes"></span></label>
+          <label><input type="radio" name="att" value="no"><span data-k="no"></span></label>
+        </div>
+      </div>
+      <label id="guestsRow"><span data-k="lGuests"></span>
+        <select id="guests"></select>
+      </label>
+      <label><span data-k="lWish"></span>
+        <input type="text" id="wish">
+      </label>
+      <button type="submit" data-k="send"></button>
+    </form>
+    <p class="note" id="note"></p>
+  </section>
+</main>
+
+<footer>
+  <p data-k="foot0"></p>
+  <p class="sig" data-k="foot1"></p>
+  <p data-k="foot2"></p>
+</footer>
+
+<script>
+/* ---- EDIT THESE ---- */
+var CONFIG = {
+  start: "2026-12-13T16:00:00+05:30", durationHours: 2,
+  whatsapp: "91XXXXXXXXXX",   // country code + number, digits only
+  maxGuests: 10,
+  hero: "images/couple.jpg",            // round photo at the top (optional)
+  photos: [                             // gallery photos; add/remove lines freely
+    "images/photo1.jpg", "images/photo2.jpg", "images/photo3.jpg",
+    "images/photo4.jpg", "images/photo5.jpg", "images/photo6.jpg"
+  ],
+  music: "music/song.mp3",              // background music (optional)
+  musicVolume: 0.6
+};
+var T = {
+en:{
+ openP:"You are invited to the wedding of", cn:'Carmel <span class="amp">&amp;</span> Andrew', openBtn:"Open invitation",
+ tag:"Two Become One", ref:"Ephesians 5:31",
+ hosts:"Mr. T. Vigneswaran (a) Viji<br>&amp; Mrs. J. Mary Sheela",
+ intro:"joyously seek your esteemed presence, prayers and blessings at the solemnization of the Holy Matrimony of our beloved daughter",
+ bride:"V. Carmel Teena", brideQ:"M.A. (Eng), B.Ed.", weds:"weds",
+ groom:"M. Andrew Jackus", groomQ:"B.E (Mech)", groomPar:"S/o Mr. A. Maria Gilbert &amp; Mrs. L. Vinnarasi", groomEnd:"",
+ saveH:"Save the date", saveP:"Gently scratch the gold to reveal our special day.", dMeta:"December 2026 · Sunday",
+ days:"Days", hours:"Hours", mins:"Minutes", secs:"Seconds",
+ galH:"Our moments", venueH:"Venue &amp; timings",
+ e1t:"Wedding ceremony", e1time:"Sunday, 13 December 2026 · 4:00 pm", e1v:"Holy Family Shrine",
+ e1a:"No. 193, V.O.C. Street, Ponniamman Medu, Kanakkan Chathram, Chennai – 110",
+ e2t:"Reception", e2time:"Sunday, 13 December 2026 · 7:00 pm", e2v:"Aanur Grand",
+ e2a:"Opposite Dr. Ambedkar College, No. 760/1, M.K.B. Nagar, West Avenue, Vyasarpadi, Chennai – 39",
+ map:"Open map", cal:"Add to calendar",
+ rsvpH:"Will you join us?", rsvpP:"Let us know if you can make it.", lName:"Your name", lAtt:"Will you attend?",
+ yes:"Yes, I’ll attend", no:"No, I can’t", lGuests:"Guests, including you", lWish:"Message for the couple (optional)", send:"Send RSVP on WhatsApp",
+ foot0:"", foot1:"With our warmest compliments.", foot2:"V. Shali Christ, MBA", scr:"Scratch here"
+},
+ta:{
+ openP:"உங்களை அன்புடன் அழைக்கிறோம்", cn:'கார்மல் <span class="amp">&amp;</span> ஆண்ட்ரூ', openBtn:"அழைப்பிதழைத் திற",
+ tag:"அன்பே உங்கள் வாழ்வுக்கு ஆணிவேரும் அடித்தளமுமாய் அமைவதாக", ref:"எபேசியர் 3:17",
+ hosts:"அன்புடையீர்,<br>திரு. T. விக்னேஸ்வரன் (எ) விஜி – திருமதி J. மேரி ஷீலா",
+ intro:"அவர்களின் மூத்த மகள், கர்த்தராகிய இயேசு கிறிஸ்துவின் பெருங்கிருபையால், தேவனுடைய சித்தத்தின்படி பெரியோர்களால் நிச்சயிக்கப்பட்ட",
+ bride:"செல்வி V. கார்மல் டீனா", brideQ:"M.A. (Eng), B.Ed.", weds:"என்கிற கன்னிகைக்கும்",
+ groom:"திருநிறைச்செல்வன் M. ஆண்ட்ரூ ஜாக்கஸ்", groomQ:"B.E (Mech)",
+ groomPar:"திரு. A. மரிய கில்பர்ட் – திருமதி L. வின்னரசி அவர்களின் இளைய குமாரன்", groomEnd:"என்கிற வரனுக்கும் திருமணம் நடைபெற உள்ளது.",
+ saveH:"நாள் குறித்துக்கொள்ளுங்கள்", saveP:"தங்க நிறத்தை மெதுவாகத் தேய்த்து எங்கள் திருமண நாளைக் காணுங்கள்.", dMeta:"டிசம்பர் 2026 · ஞாயிற்றுக்கிழமை",
+ days:"நாட்கள்", hours:"மணி", mins:"நிமிடம்", secs:"விநாடி",
+ galH:"எங்கள் தருணங்கள்", venueH:"இடம் &amp; நேரம்",
+ e1t:"திருமண அருட்சாதனம்", e1time:"ஞாயிற்றுக்கிழமை, 13 டிசம்பர் 2026 · மாலை 4:00 மணி", e1v:"திருக்குடும்ப ஆலயம்",
+ e1a:"நெ: 193, வ.உ.சி. தெரு, பொன்னியம்மன் மேடு, கணக்கன் சத்திரம், சென்னை – 110",
+ e2t:"வரவேற்பு விருந்து", e2time:"ஞாயிற்றுக்கிழமை, 13 டிசம்பர் 2026 · மாலை 7:00 மணி", e2v:"ஆனூர் கிராண்ட்",
+ e2a:"டாக்டர் அம்பேத்கர் கல்லூரி எதிரில், நெ: 760/1, எம்.கே.பி. நகர், மேற்கு அவென்யூ, வியாசர்பாடி, சென்னை – 39",
+ map:"வரைபடம்", cal:"நாட்காட்டியில் சேர்",
+ rsvpH:"நீங்கள் வருவீர்களா?", rsvpP:"சுற்றமும் நட்புடன் சூழ வருகை தந்து மணமக்களை ஆசீர்வதிக்கும்படி அன்புடன் அழைக்கின்றோம்.",
+ lName:"உங்கள் பெயர்", lAtt:"வருகை உறுதி", yes:"வருகிறேன்", no:"வர இயலாது", lGuests:"உங்களுடன் சேர்த்து நபர்கள்",
+ lWish:"மணமக்களுக்கு வாழ்த்து (விருப்பம்)", send:"WhatsApp-இல் பதில் அனுப்பு",
+ foot0:"தங்கள் அன்புள்ள,<br>T. விக்னேஸ்வரன் (எ) விஜி, J. மேரி ஷீலா<br>A. மரிய கில்பர்ட், L. வின்னரசி",
+ foot1:"தங்கள் நல்வரவை அன்புடன் எதிர்நோக்கும்", foot2:"V. ஷாலி கிறிஸ்ட், MBA", scr:"இங்கே தேய்க்கவும்"
+}};
+(function(){
+  var $ = function(i){return document.getElementById(i)}, lang = "en";
+  var when = new Date(CONFIG.start), end = new Date(when.getTime() + CONFIG.durationHours*3600000);
+
+  function apply(l){
+    lang = l; document.documentElement.lang = l;
+    document.querySelectorAll("[data-k]").forEach(function(el){
+      var v = T[l][el.getAttribute("data-k")]; el.innerHTML = v || ""; el.style.display = v ? "" : "none";
+    });
+    document.querySelectorAll(".lang button").forEach(function(b){b.setAttribute("aria-pressed", b.dataset.lang === l)});
+    document.title = l === "ta" ? "கார்மல் & ஆண்ட்ரூ — திருமண அழைப்பிதழ்" : "Carmel & Andrew — Wedding Invitation";
+  }
+  document.querySelectorAll(".lang button").forEach(function(b){b.onclick = function(){apply(b.dataset.lang)}});
+  apply("en");
+
+  var g = function(d){return d.toISOString().replace(/[-:]|\.\d{3}/g,"")};
+  $("calBtn").href = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" +
+    encodeURIComponent("Carmel & Andrew Wedding") + "&dates=" + g(when) + "/" + g(end) +
+    "&location=" + encodeURIComponent("Holy Family Shrine, V.O.C. Street, Ponniamman Medu, Kanakkan Chathram, Chennai 600110");
+
+  $("openBtn").onclick = function(){
+    var cv = $("cover"); cv.classList.add("open"); document.body.classList.remove("locked");
+    setTimeout(function(){cv.classList.add("gone")}, 1500);
+    if(CONFIG.music && !musicFailed){ mbtn.hidden = false; setMusic(true); }
+  };
+
+  function tick(){
+    var s = Math.max(0, Math.floor((when - new Date())/1000));
+    $("cd").textContent = Math.floor(s/86400); $("ch").textContent = Math.floor(s%86400/3600);
+    $("cm").textContent = Math.floor(s%3600/60); $("cs").textContent = s%60;
+  }
+  tick(); setInterval(tick, 1000);
+
+  var cv = $("scratch"), ctx = cv.getContext("2d"), drawing = false, done = false, n0 = 0;
+  (function paint(){
+    var w = cv.clientWidth, h = cv.clientHeight, r = window.devicePixelRatio || 1;
+    cv.width = w*r; cv.height = h*r; ctx.setTransform(r,0,0,r,0,0);
+    var gr = ctx.createLinearGradient(0,0,w,h);
+    gr.addColorStop(0,"#b8860b"); gr.addColorStop(.35,"#f6d27a"); gr.addColorStop(.6,"#e8a317"); gr.addColorStop(1,"#a9760a");
+    ctx.fillStyle = gr; ctx.fillRect(0,0,w,h);
+    ctx.fillStyle = "rgba(60,36,0,.75)"; ctx.font = "600 18px Jost, 'Noto Sans Tamil', sans-serif"; ctx.textAlign = "center";
+    ctx.fillText(T.en.scr, w/2, h/2 - 4); ctx.fillText(T.ta.scr, w/2, h/2 + 22);
+    ctx.globalCompositeOperation = "destination-out";
+  })();
+  function scratch(e){
+    if(!drawing || done) return;
+    var b = cv.getBoundingClientRect();
+    ctx.beginPath(); ctx.arc(e.clientX - b.left, e.clientY - b.top, 24, 0, 7); ctx.fill();
+    if(++n0 % 12 === 0) check();
+  }
+  function check(){
+    var d = ctx.getImageData(0,0,cv.width,cv.height).data, n = 0, t = 0;
+    for(var i = 3; i < d.length; i += 160){ t++; if(d[i] === 0) n++; }
+    if(n/t > .45){ done = true; cv.classList.add("done"); }
+  }
+  cv.addEventListener("pointerdown", function(e){drawing = true; cv.setPointerCapture(e.pointerId); scratch(e)});
+  cv.addEventListener("pointermove", scratch);
+  cv.addEventListener("pointerup", function(){drawing = false; check()});
+
+  var sel = $("guests");
+  for(var i = 1; i <= CONFIG.maxGuests; i++){ var o = document.createElement("option"); o.value = i; o.textContent = i; sel.appendChild(o); }
+  document.querySelectorAll("input[name=att]").forEach(function(r){
+    r.onchange = function(){ $("guestsRow").style.display = document.querySelector("input[name=att]:checked").value === "no" ? "none" : "grid"; };
+  });
+  $("rsvp").onsubmit = function(e){
+    e.preventDefault();
+    var yes = document.querySelector("input[name=att]:checked").value === "yes", w = $("wish").value.trim();
+    var msg = "Hi! This is " + $("gName").value.trim() + ". " +
+      (yes ? "I will attend the wedding of Carmel & Andrew (" + sel.value + " guest" + (sel.value > 1 ? "s" : "") + " including me)."
+           : "Sorry, I can’t attend the wedding of Carmel & Andrew.") + (w ? " Message: " + w : "");
+    $("note").textContent = lang === "ta" ? "WhatsApp திறக்கிறது…" : "Opening WhatsApp to send your response…";
+    window.open("https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(msg), "_blank");
+  };
+
+  /* ---- photos ---- */
+  if(CONFIG.hero){
+    var hp = $("heroPic");
+    hp.onload = function(){ hp.hidden = false; };
+    hp.onerror = function(){ hp.remove(); };
+    hp.src = CONFIG.hero;
+  }
+  var gal = $("gallery"), lb = $("lb");
+  (CONFIG.photos || []).forEach(function(src){
+    var im = new Image(); im.loading = "lazy"; im.alt = "Carmel and Andrew";
+    im.onload = function(){ $("gallerySec").hidden = false; };
+    im.onerror = function(){ im.remove(); };
+    im.onclick = function(){ $("lbImg").src = src; lb.hidden = false; };
+    im.src = src; gal.appendChild(im);
+  });
+  lb.onclick = function(){ lb.hidden = true; };
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape") lb.hidden = true; });
+
+  /* ---- background music ---- */
+  var bgm = $("bgm"), mbtn = $("musicBtn"), wantMusic = false, musicFailed = !CONFIG.music;
+  if(CONFIG.music){ bgm.src = CONFIG.music; bgm.volume = CONFIG.musicVolume; }
+  bgm.addEventListener("error", function(){ musicFailed = true; mbtn.hidden = true; });
+  function syncMusic(){ mbtn.setAttribute("aria-pressed", wantMusic); }
+  function setMusic(on){
+    wantMusic = on; syncMusic();
+    if(on){ var p = bgm.play(); if(p && p.catch) p.catch(function(){ wantMusic = false; syncMusic(); }); }
+    else bgm.pause();
+  }
+  mbtn.onclick = function(){ setMusic(!wantMusic); };
+  document.addEventListener("visibilitychange", function(){
+    if(document.hidden) bgm.pause(); else if(wantMusic) bgm.play().catch(function(){});
+  });
+})();
+</script>
+</body>
+</html>

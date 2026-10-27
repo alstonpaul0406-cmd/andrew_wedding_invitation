@@ -1,0 +1,5 @@
+services:
+  - type: web
+    name: wedding-invitation
+    runtime: static
+    staticPublishPath: .
