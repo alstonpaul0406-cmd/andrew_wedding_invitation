@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fffaf2">
+<meta name="color-scheme" content="light">
+<title>Andrew &amp; Carmel — Catholic Wedding Invitation</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Great+Vibes&family=Jost:wght@400;500;600&family=Noto+Sans+Tamil:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fffaf2;--bg2:#f7ecd8;--card:#fffdf8;--ink:#3b2a2a;--muted:#6b5a4e;
+  --maroon:#7a1f2b;--maroon2:#5a1420;--gold:#b8860b;--gold2:#e0b84f;
+  --line:rgba(184,134,11,.38);
+  --serif:"Cormorant Garamond","Noto Sans Tamil",Georgia,serif;
+  --script:"Great Vibes","Noto Sans Tamil",cursive;
+  --sans:"Jost","Noto Sans Tamil",system-ui,sans-serif;
+  box-sizing:border-box;color-scheme:light;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+body{
+  background:var(--bg);
+  background-image:radial-gradient(circle at 50% 0,rgba(224,184,79,.18),transparent 55%);
+  color:var(--ink);font-family:var(--sans);line-height:1.7;overflow-x:hidden;
+}
+body.locked{height:100vh;overflow:hidden}
+button,.btn{font:500 1rem var(--sans);cursor:pointer;border:0;border-radius:999px;padding:13px 26px;background:var(--maroon);color:var(--bg);text-decoration:none;display:inline-block}
+button:focus-visible,.btn:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--maroon);outline-offset:3px}
+.ghost{background:transparent;color:var(--maroon);border:1.5px solid var(--maroon)}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.2}
+section{padding:76px 22px;max-width:620px;margin:0 auto;text-align:center}
+section+section{border-top:1px solid var(--line)}
+h2{font-size:2.2rem;color:var(--maroon);margin-bottom:12px}
+h2:after{content:"✦";display:block;font-size:.8rem;color:var(--gold);margin-top:7px}
+p{color:var(--muted)}
+.amp{color:var(--gold);font-style:italic}
+.lang{
+  position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);right:12px;z-index:70;
+  display:flex;border:1px solid var(--maroon);border-radius:999px;overflow:hidden;background:var(--bg)
+}
+.lang button{padding:8px 14px;font-size:.88rem;background:transparent;color:var(--maroon);border-radius:0}
+.lang button[aria-pressed=true]{background:var(--maroon);color:var(--bg)}
+
+.cover{
+  position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;text-align:center;
+  padding:22px;background:var(--bg);
+  background-image:radial-gradient(circle at 50% 30%,rgba(224,184,79,.25),transparent 60%);
+  transition:opacity 1s ease,transform 1.2s ease;overflow:auto
+}
+.cover:before{content:"";position:absolute;inset:14px;border:1px solid var(--line);border-radius:8px;pointer-events:none}
+.cover.open{opacity:0;transform:scale(1.06);pointer-events:none}
+.cover.gone{display:none}
+.seal{width:min(92vw,390px);position:relative;z-index:1}
+.seal .cross{color:var(--gold)}
+.seal h1{font:400 clamp(2.8rem,14vw,4rem) var(--script);color:var(--maroon);margin:10px 0 0;line-height:1.2}
+.seal p{margin:8px 0}
+.waxseal{
+  margin:22px auto 12px;width:128px;height:128px;border:0;padding:0;border-radius:52% 48% 50% 50%/50% 52% 48% 50%;
+  background:radial-gradient(circle at 35% 30%,#b3394a,#7a1f2b 60%,#5a1420);color:var(--gold2);
+  font:600 2rem var(--serif);display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 10px 22px rgba(90,20,32,.35),inset 0 0 0 7px rgba(224,184,79,.22),inset 0 0 0 8px rgba(90,20,32,.45);
+  animation:pulse 2.4s ease-in-out infinite
+}
+@keyframes pulse{50%{transform:scale(1.06)}}
+
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;padding-top:86px}
+.hero-art{
+  width:min(94vw,580px);aspect-ratio:1/1;border-radius:28px;object-fit:cover;
+  border:2px solid var(--gold);box-shadow:0 18px 50px rgba(90,20,32,.16),0 0 0 8px rgba(184,134,11,.09);
+  animation:artFloat 7s ease-in-out infinite;transform-origin:center;
+}
+@keyframes artFloat{
+  0%,100%{transform:translateY(0) scale(1)}
+  50%{transform:translateY(-7px) scale(1.018)}
+}
+.hero-art-wrap{position:relative;margin-bottom:8px}
+
+/* Speech Bubbles Overlay Styles */
+.speech-bubble {
+  position: absolute;
+  background: var(--card);
+  border: 1.5px solid var(--gold);
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--maroon);
+  box-shadow: 0 8px 22px rgba(90,20,32,0.18);
+  max-width: 200px;
+  text-align: center;
+  z-index: 5;
+  opacity: 0;
+  transform: translateY(12px) scale(0.9);
+  animation: bubblePopIn 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, bubbleFloat 4s ease-in-out infinite alternate;
+}
+
+/* Speech bubble tail indicators */
+.speech-bubble:after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  width: 12px;
+  height: 12px;
+  background: var(--card);
+  border-right: 1.5px solid var(--gold);
+  border-bottom: 1.5px solid var(--gold);
+}
+
+/* 1. Groom proposal bubble appears at 0.8s */
+.speech-bubble.groom-bubble {
+  bottom: 34%;
+  right: 4%;
+  animation-delay: 0.8s, 1.55s;
+}
+.speech-bubble.groom-bubble:after {
+  right: 20px;
+  transform: rotate(45deg);
+}
+
+/* 2. Bride reply bubble appears at 2.6s (1.8s delay after Groom speaks) */
+.speech-bubble.bride-bubble {
+  bottom: 24%;
+  left: 4%;
+  animation-delay: 2.6s, 3.35s;
+}
+.speech-bubble.bride-bubble:after {
+  left: 20px;
+  transform: rotate(45deg);
+}
+
+@keyframes bubblePopIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes bubbleFloat {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-6px); }
+}
+
+.hero-art-wrap:after{
+  content:"✦  ✝  ✦";position:absolute;left:50%;bottom:-18px;transform:translateX(-50%);
+  color:var(--gold);font-size:1.15rem;letter-spacing:.28em;background:var(--bg);padding:0 10px
+}
+.tag{font:600 1.45rem var(--serif);color:var(--maroon)}
+.q{font-size:.95rem}
+.orn{color:var(--gold);letter-spacing:.5em;font-size:.8rem}
+.who{font:400 clamp(2.5rem,11vw,3.6rem) var(--script);color:var(--maroon);line-height:1.2}
+.par{font:600 1.12rem var(--serif);color:var(--ink)}
+.weds{font:italic 500 1.4rem var(--serif);color:var(--gold);margin:6px 0 2px}
+.scroll-cue{margin-top:16px;font-size:.82rem;color:var(--maroon);letter-spacing:.08em}
+.scroll-cue span{display:block;font-size:1.4rem;animation:bob 1.8s infinite}
+@keyframes bob{50%{transform:translateY(6px)}}
+
+.section-intro{max-width:470px;margin:0 auto}
+.date-wrap{
+  position:relative;margin:24px auto;width:100%;max-width:360px;height:175px;border-radius:18px;overflow:hidden;
+  background:var(--card);border:1.5px solid var(--gold);color:var(--ink);display:flex;flex-direction:column;justify-content:center
+}
+.date-wrap .d{font:600 3.5rem var(--serif);color:var(--maroon)}
+.date-wrap .m{font-size:1.05rem;color:var(--muted)}
+.date-wrap canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;transition:opacity .8s}
+.date-wrap canvas.done{opacity:0;pointer-events:none}
+.count{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
+.count div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 4px}
+.count b{display:block;font:600 2rem var(--serif);color:var(--maroon)}
+.count span{font-size:.8rem;color:var(--muted)}
+
+.story-card{
+  margin:24px auto 0;background:var(--card);border:1px solid var(--line);border-radius:20px;
+  overflow:hidden;box-shadow:0 10px 28px rgba(122,31,43,.08)
+}
+.story-card img{width:100%;display:block}
+.caption{padding:16px 20px 20px}
+.caption strong{font:600 1.5rem var(--serif);color:var(--maroon)}
+
+.ev{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 20px;margin-top:20px;
+  box-shadow:0 8px 22px rgba(122,31,43,.07)
+}
+.ev h3{font-size:1.55rem;color:var(--maroon)}
+.ev .t{color:var(--ink);margin:6px 0}
+.ev .v{font:600 1.4rem var(--serif);color:var(--ink)}
+.ev .a{font-size:.94rem;margin:4px 0 16px}
+.row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cross-divider{color:var(--gold);font-size:1.2rem;margin:4px 0}
+
+form{display:grid;gap:18px;text-align:left;margin-top:22px}
+label{display:grid;gap:6px;font-size:.95rem;color:var(--ink)}
+input[type=text],select{
+  font:inherit;padding:13px 14px;border-radius:10px;border:1px solid var(--gold);background:var(--card);color:var(--ink)
+}
+.choice{display:flex;gap:10px}
+.choice label{flex:1;display:block}
+.choice input{position:absolute;opacity:0}
+.choice span{display:block;text-align:center;padding:13px 8px;border-radius:10px;border:1px solid var(--gold);background:var(--card);cursor:pointer}
+.choice input:checked+span{background:var(--maroon);border-color:var(--maroon);color:var(--bg)}
+.note{font-size:.9rem;margin-top:14px;min-height:1.4em}
+
+.music{
+  position:fixed;left:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:70;width:46px;height:46px;
+  padding:0;font-size:1.3rem;line-height:46px;text-align:center;background:var(--bg);color:var(--maroon);border:1.5px solid var(--maroon)
+}
+.music[aria-pressed=true]{background:var(--maroon);color:var(--bg)}
+
+.rose-rain{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:8;
+}
+
+footer{padding:48px 24px 72px;text-align:center;border-top:1px solid var(--line)}
+footer p{margin-top:6px}
+footer .sig{font:400 2.5rem var(--script);color:var(--maroon);line-height:1.3}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:none}
+
+.floating-cross{
+  position:fixed;right:8px;bottom:100px;color:rgba(122,31,43,.14);font-size:2rem;z-index:1;
+  animation:floatCross 5s ease-in-out infinite;pointer-events:none
+}
+@keyframes floatCross{50%{transform:translateY(-15px) rotate(5deg)}}
+
+@media (prefers-reduced-motion:reduce){
+  .cover,.hero-art,.waxseal,.scroll-cue span,.floating-cross,.reveal,.speech-bubble{animation:none;transition:none}
+}
+@media(max-width:390px){
+  section{padding-left:18px;padding-right:18px}
+  .count{gap:6px}
+  .count b{font-size:1.55rem}
+  .count span{font-size:.72rem}
+}
+</style>
+</head>
+<body class="locked">
+
+<canvas id="roseRain" class="rose-rain" aria-hidden="true"></canvas>
+
+<div class="lang" role="group" aria-label="Language">
+  <button type="button" data-lang="en" aria-pressed="true">English</button>
+  <button type="button" data-lang="ta" aria-pressed="false">தமிழ்</button>
+</div>
+
+<button type="button" class="music" id="musicBtn" aria-pressed="false" aria-label="Toggle background music">♪</button>
+<audio id="bgm" loop preload="none"></audio>
+<div class="floating-cross" aria-hidden="true">✝</div>
+
+<div class="cover" id="cover">
+  <div class="seal">
+    <svg class="cross" width="30" height="42" viewBox="0 0 36 48" aria-hidden="true"><path d="M14 0h8v14h14v8H22v26h-8V22H0v-8h14z" fill="currentColor"/></svg>
+    <p data-k="openP"></p>
+    <h1 data-k="cn"></h1>
+    <p>13 · 12 · 2026</p>
+    <button type="button" class="waxseal" id="openBtn" aria-label="Open invitation"><span>A&amp;C</span></button>
+    <p data-k="openBtn"></p>
+  </div>
+</div>
+
+<main>
+  <section class="hero reveal">
+    <div class="hero-art-wrap">
+      <img class="hero-art" src="./assets/catholic-wedding.png" alt="Illustrated Catholic wedding ceremony with bride, groom and priest">
+      <!-- 1. Groom proposal appears first at 0.8s -->
+      <div class="speech-bubble groom-bubble">“Tina, will you marry me?”</div>
+      <!-- 2. Bride reply appears second at 2.6s (1.8s pause after proposal) -->
+      <div class="speech-bubble bride-bubble">“Yes, Andrew! I’ve been waiting for this moment.”</div>
+    </div>
+    <p class="tag" data-k="tag"></p>
+    <p class="q" data-k="ref"></p>
+    <p class="orn" aria-hidden="true">✦ ✝ ✦</p>
+    <p data-k="intro"></p>
+    <p class="who" data-k="groom"></p>
+    <p class="q" data-k="groomQ"></p>
+    <p class="par" data-k="groomPar"></p>
+    <p class="weds" data-k="weds"></p>
+    <p class="who" data-k="bride"></p>
+    <p class="q" data-k="brideQ"></p>
+    <p class="par" data-k="bridePar"></p>
+    <p data-k="brideEnd"></p>
+    <div class="scroll-cue" data-k="scroll">Scroll to reveal <span>↓</span></div>
+  </section>
+
+  <section class="reveal">
+    <h2 data-k="saveH"></h2>
+    <p class="section-intro" data-k="saveP"></p>
+    <div class="date-wrap" id="dateWrap">
+      <div class="d">13</div>
+      <div class="m" data-k="dMeta"></div>
+      <canvas id="scratch" aria-label="Scratch to reveal the wedding date"></canvas>
+    </div>
+    <div class="count">
+      <div><b id="cd">--</b><span data-k="days"></span></div>
+      <div><b id="ch">--</b><span data-k="hours"></span></div>
+      <div><b id="cm">--</b><span data-k="mins"></span></div>
+      <div><b id="cs">--</b><span data-k="secs"></span></div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <h2 data-k="storyH"></h2>
+    <p class="section-intro" data-k="storyP"></p>
+    <div class="story-card">
+      <img src="./assets/catholic-wedding.png" alt="Catholic wedding illustration">
+      <div class="caption">
+        <strong data-k="storyTitle"></strong>
+        <p data-k="storyText"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <h2 data-k="venueH"></h2>
+    <div class="ev">
+      <div class="cross-divider">✝</div>
+      <h3 data-k="e1t"></h3>
+      <p class="t" data-k="e1time"></p>
+      <p class="v" data-k="e1v"></p>
+      <p class="a" data-k="e1a"></p>
+      <div class="row">
+        <a class="btn" target="_blank" rel="noopener" data-k="map" href="https://www.google.com/maps/search/?api=1&query=Holy+Family+Shrine+Kanakkan+Chathram+Chennai"></a>
+        <a class="btn ghost" id="calBtn" target="_blank" rel="noopener" data-k="cal"></a>
+      </div>
+    </div>
+
+    <div class="ev">
+      <div class="cross-divider">✝</div>
+      <h3 data-k="e2t"></h3>
+      <p class="t" data-k="e2time"></p>
+      <p class="v" data-k="e2v"></p>
+      <p class="a" data-k="e2a"></p>
+      <div class="row">
+        <a class="btn" target="_blank" rel="noopener" data-k="map" href="https://www.google.com/maps/search/?api=1&query=Aanur+Grand+MKB+Nagar+Vyasarpadi+Chennai"></a>
+      </div>
+    </div>
+
+    <div class="ev">
+      <div class="cross-divider">✝</div>
+      <h3 data-k="e3t"></h3>
+      <p class="t" data-k="e3time"></p>
+      <p class="v" data-k="e3v"></p>
+      <p class="a" data-k="e3a"></p>
+      <div class="row">
+        <a class="btn" target="_blank" rel="noopener" data-k="map" href="https://www.google.com/maps/search/?api=1&query=JPR+Mahal+Thirumana+Mandapam+Sangagiri"></a>
+        <a class="btn ghost" id="calBtn3" target="_blank" rel="noopener" data-k="cal"></a>
+        <a class="btn ghost" href="tel:+919865635380" data-k="call3"></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <h2 data-k="rsvpH"></h2>
+    <p data-k="rsvpP"></p>
+    <form id="rsvp">
+      <label><span data-k="lName"></span>
+        <input type="text" id="gName" required autocomplete="name">
+      </label>
+      <div>
+        <p style="margin-bottom:6px;color:var(--ink)" data-k="lAtt"></p>
+        <div class="choice">
+          <label><input type="radio" name="att" value="yes" checked><span data-k="yes"></span></label>
+          <label><input type="radio" name="att" value="no"><span data-k="no"></span></label>
+        </div>
+      </div>
+      <label id="guestsRow"><span data-k="lGuests"></span>
+        <select id="guests"></select>
+      </label>
+      <label><span data-k="lWish"></span>
+        <input type="text" id="wish">
+      </label>
+      <button type="submit" data-k="send"></button>
+    </form>
+    <p class="note" id="note"></p>
+  </section>
+</main>
+
+<footer>
+  <p data-k="foot0"></p>
+  <p class="sig" data-k="foot1"></p>
+  <p data-k="foot2"></p>
+</footer>
+
+<script>
+const CONFIG = {
+  start: "2026-12-13T16:00:00+05:30",
+  durationHours: 2,
+  whatsapp: "918072185338",
+  maxGuests: 10,
+  start3: "2026-12-16T15:30:00+05:30",
+  durationHours3: 3,
+  music: "assets/UntilIFoundYou.mp3",
+  musicVolume: 0.6
+};
+
+const T = {
+en:{
+  openP:"You are invited to the wedding of",
+  cn:'Andrew <span class="amp">&amp;</span> Carmel',
+  openBtn:"Tap the seal to open",
+  tag:"Two Become One", ref:"Ephesians 5:31",
+  intro:"With the blessings of the Almighty and our beloved families, we joyfully invite you to grace the wedding of",
+  groom:"M. Andrew Jackus", groomQ:"B.E (Mech)", groomPar:"S/o Mr. A. Maria Gilbert &amp; Mrs. L. Vinnarasi",
+  weds:"weds",
+  bride:"V. Carmel Teena", brideQ:"M.A. (Eng), B.Ed.", bridePar:"D/o Mr. T. Vigneswaran (a) Viji &amp; Mrs. J. Mary Sheela", brideEnd:"",
+  scroll:"Scroll to reveal",
+  saveH:"Save the date", saveP:"Gently scratch the gold to reveal our special day.", dMeta:"December 2026 · Sunday",
+  days:"Days", hours:"Hours", mins:"Minutes", secs:"Seconds",
+  storyH:"Our Catholic Wedding", storyP:"A joyful day of faith, family and a lifelong promise.", storyTitle:"A sacred beginning",
+  storyText:"In the presence of God, surrounded by family and friends, two hearts become one.",
+  venueH:"Venue &amp; timings",
+  e1t:"Wedding ceremony", e1time:"Sunday, 13 December 2026 · 4:00 pm", e1v:"Holy Family Shrine",
+  e1a:"No. 193, V.O.C. Street, Ponniamman Medu, Kanakkan Chathram, Chennai – 110",
+  e2t:"Reception", e2time:"Sunday, 13 December 2026 · 7:00 pm", e2v:"Aanur Grand",
+  e2a:"Opposite Dr. Ambedkar College, No. 760/1, M.K.B. Nagar, West Avenue, Vyasarpadi, Chennai – 39",
+  e3t:"Reception · Sangagiri", e3time:"Wednesday, 16 December 2026 · 3:30 pm", e3v:"JPR Mahal Thirumana Mandapam",
+  e3a:"NH544, Sangagiri, Tamil Nadu", call3:"Call +91 98656 35380",
+  map:"Open map", cal:"Add to calendar",
+  rsvpH:"Will you join us?", rsvpP:"Let us know if you can make it.", lName:"Your name", lAtt:"Will you attend?",
+  yes:"Yes, I’ll attend", no:"No, I can’t", lGuests:"Guests, including you", lWish:"Message for the couple (optional)", send:"Send RSVP on WhatsApp",
+  foot0:"With love and blessings", foot1:'Andrew <span class="amp">&amp;</span> Carmel', foot2:"13 · 12 · 2026",
+  scr:"Scratch here"
+},
+ta:{
+  openP:"உங்களை அன்புடன் அழைக்கிறோம்", cn:'ஆண்ட்ரூ <span class="amp">&amp;</span> கார்மல்', openBtn:"முத்திரையைத் தொடவும்",
+  tag:"அன்பே உங்கள் வாழ்வுக்கு ஆணிவேரும் அடித்தளமுமாய் அமைவதாக", ref:"எபேசியர் 5:31",
+  intro:"கர்த்தராகிய இயேசு கிறிஸ்துவின் பெருங்கிருபையால், தேவனுடைய சித்தத்தின்படி பெரியோர்களால் நிச்சயிக்கப்பட்ட",
+  groom:"திருநிறைச்செல்வன் M. ஆண்ட்ரூ ஜாக்கஸ்", groomQ:"B.E (Mech)", groomPar:"திரு. A. மரிய கில்பர்ட் – திருமதி L. வின்னரசி அவர்களின் இளைய குமாரன்",
+  weds:"என்கிற வரனுக்கும்",
+  bride:"செல்வி V. கார்மல் டீனா", brideQ:"M.A. (Eng), B.Ed.", bridePar:"திரு. T. விக்னேஸ்வரன் (எ) விஜி – திருமதி J. மேரி ஷீலா அவர்களின் மூத்த மகள்", brideEnd:"என்கிற கன்னிகைக்கும் திருமணம் நடைபெற உள்ளது.",
+  scroll:"கீழே காண்க",
+  saveH:"நாள் குறித்துக்கொள்ளுங்கள்", saveP:"தங்க நிறத்தை மெதுவாகத் தேய்த்து எங்கள் திருமண நாளைக் காணுங்கள்.", dMeta:"டிசம்பர் 2026 · ஞாயிற்றுக்கிழமை",
+  days:"நாட்கள்", hours:"மணி", mins:"நிமிடம்", secs:"விநாடி",
+  storyH:"எங்கள் கத்தோலிக்க திருமணம்", storyP:"நம்பிக்கை, குடும்பம் மற்றும் வாழ்நாள் உறுதிமொழியுடன் ஒரு மகிழ்ச்சியான நாள்.", storyTitle:"புனிதமான தொடக்கம்",
+  storyText:"இறைவனின் முன்னிலையில், குடும்பத்தினரும் நண்பர்களும் சூழ, இரண்டு இதயங்கள் ஒன்றாக இணைகின்றன.",
+  venueH:"இடம் &amp; நேரம்",
+  e1t:"திருமண அருட்சாதனம்", e1time:"ஞாயிற்றுக்கிழமை, 13 டிசம்பர் 2026 · மாலை 4:00 மணி", e1v:"திருக்குடும்ப ஆலயம்",
+  e1a:"நெ: 193, வ.உ.சி. தெரு, பொன்னியம்மன் மேடு, கணக்கன் சத்திரம், சென்னை – 110",
+  e2t:"வரவேற்பு விருந்து", e2time:"ஞாயிற்றுக்கிழமை, 13 டிசம்பர் 2026 · மாலை 7:00 மணி", e2v:"ஆனூர் கிராண்ட்",
+  e2a:"டாக்டர் அம்பேத்கர் கல்லூரி எதிரில், நெ: 760/1, எம்.கே.பி. நகர், மேற்கு அவென்யூ, வியாசர்பாடி, சென்னை – 39",
+  e3t:"வரவேற்பு விருந்து · சங்ககிரி", e3time:"புதன்கிழமை, 16 டிசம்பர் 2026 · மாலை 3:30 மணி", e3v:"JPR மஹால் திருமண மண்டபம்",
+  e3a:"NH544, சங்ககிரி, தமிழ்நாடு", call3:"அழைக்க +91 98656 35380",
+  map:"வரைபடம்", cal:"நாட்காட்டியில் சேர்",
+  rsvpH:"நீங்கள் வருவீர்களா?", rsvpP:"சுற்றமும் நட்புடன் சூழ வருகை தந்து மணமக்களை ஆசீர்வதிக்கும்படி அன்புடன் அழைக்கின்றோம்.",
+  lName:"உங்கள் பெயர்", lAtt:"வருகை உறுதி", yes:"வருகிறேன்", no:"வர இயலாது", lGuests:"உங்களுடன் சேர்த்து நபர்கள்",
+  lWish:"மணமக்களுக்கு வாழ்த்து (விருப்பம்)", send:"WhatsApp-இல் பதில் அனுப்பு",
+  foot0:"அன்புடனும் ஆசீர்வாதங்களுடனும்", foot1:'ஆண்ட்ரூ <span class="amp">&amp;</span> கார்மல்', foot2:"13 · 12 · 2026",
+  scr:"இங்கே தேய்க்கவும்"
+}
+};
+
+(function(){
+  let lang = "en";
+  const $ = id => document.getElementById(id);
+  const when = new Date(CONFIG.start);
+  const end = new Date(when.getTime() + CONFIG.durationHours*3600000);
+
+  function apply(l){
+    lang = l;
+    document.documentElement.lang = l;
+    document.querySelectorAll("[data-k]").forEach(el=>{
+      const v = T[l][el.getAttribute("data-k")];
+      el.innerHTML = v || "";
+      el.style.display = v ? "" : "none";
+    });
+    $("openBtn").setAttribute("aria-label", T[l].openBtn);
+    document.querySelectorAll(".lang button").forEach(b=>{
+      b.setAttribute("aria-pressed", b.dataset.lang === l);
+    });
+    document.title = l === "ta" ? "ஆண்ட்ரூ & கார்மல் — கத்தோலிக்க திருமண அழைப்பிதழ்" : "Andrew & Carmel — Catholic Wedding Invitation";
+  }
+  document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>apply(b.dataset.lang));
+  apply("en");
+
+  // Google Calendar links
+  const g = d => d.toISOString().replace(/[-:]|\.\d{3}/g,"");
+  $("calBtn").href =
+    "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Andrew & Carmel Wedding")+
+    "&dates="+g(when)+"/"+g(end)+
+    "&location="+encodeURIComponent("Holy Family Shrine, V.O.C. Street, Ponniamman Medu, Kanakkan Chathram, Chennai 600110");
+
+  const w3 = new Date(CONFIG.start3), e3 = new Date(w3.getTime()+CONFIG.durationHours3*3600000);
+  $("calBtn3").href =
+    "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Andrew & Carmel Wedding Reception")+
+    "&dates="+g(w3)+"/"+g(e3)+
+    "&location="+encodeURIComponent("JPR Mahal Thirumana Mandapam, NH544, Sangagiri, Tamil Nadu");
+
+  // Opening cover
+  $("openBtn").onclick=()=>{
+    const cv=$("cover");
+    cv.classList.add("open");
+    document.body.classList.remove("locked");
+    setTimeout(()=>cv.classList.add("gone"),1300);
+    if(CONFIG.music) setMusic(true);
+  };
+
+  // Countdown
+  function tick(){
+    const s=Math.max(0,Math.floor((when-new Date())/1000));
+    $("cd").textContent=Math.floor(s/86400);
+    $("ch").textContent=Math.floor(s%86400/3600);
+    $("cm").textContent=Math.floor(s%3600/60);
+    $("cs").textContent=s%60;
+  }
+  tick(); setInterval(tick,1000);
+
+  // Scratch reveal
+  const cv=$("scratch"), ctx=cv.getContext("2d");
+  let drawing=false, done=false, strokes=0;
+  function paint(){
+    const w=cv.clientWidth,h=cv.clientHeight,r=window.devicePixelRatio||1;
+    cv.width=w*r;cv.height=h*r;ctx.setTransform(r,0,0,r,0,0);
+    const gr=ctx.createLinearGradient(0,0,w,h);
+    gr.addColorStop(0,"#b8860b");gr.addColorStop(.35,"#f0d27a");gr.addColorStop(.6,"#d9a82a");gr.addColorStop(1,"#a9760a");
+    ctx.fillStyle=gr;ctx.fillRect(0,0,w,h);
+    ctx.fillStyle="rgba(60,36,0,.75)";
+    ctx.font="600 18px Jost, 'Noto Sans Tamil', sans-serif";ctx.textAlign="center";
+    ctx.fillText(T.en.scr,w/2,h/2-4);ctx.fillText(T.ta.scr,w/2,h/2+22);
+    ctx.globalCompositeOperation="destination-out";
+  }
+  paint();
+  window.addEventListener("resize",()=>{if(!done)paint()});
+  function scratch(e){
+    if(!drawing||done)return;
+    const b=cv.getBoundingClientRect();
+    ctx.beginPath();ctx.arc(e.clientX-b.left,e.clientY-b.top,24,0,Math.PI*2);ctx.fill();
+    if(++strokes%12===0)check();
+  }
+  function check(){
+    const d=ctx.getImageData(0,0,cv.width,cv.height).data;
+    let n=0,t=0;
+    for(let i=3;i<d.length;i+=160){t++;if(d[i]===0)n++}
+    if(n/t>.45){done=true;cv.classList.add("done")}
+  }
+  cv.addEventListener("pointerdown",e=>{drawing=true;cv.setPointerCapture(e.pointerId);scratch(e)});
+  cv.addEventListener("pointermove",scratch);
+  cv.addEventListener("pointerup",()=>{drawing=false;check()});
+  cv.addEventListener("pointercancel",()=>drawing=false);
+
+  // RSVP
+  const sel=$("guests");
+  for(let i=1;i<=CONFIG.maxGuests;i++){
+    const o=document.createElement("option");o.value=i;o.textContent=i;sel.appendChild(o);
+  }
+  document.querySelectorAll("input[name=att]").forEach(r=>r.onchange=()=>{
+    $("guestsRow").style.display=document.querySelector("input[name=att]:checked").value==="no"?"none":"grid";
+  });
+  $("rsvp").onsubmit=e=>{
+    e.preventDefault();
+    const yes=document.querySelector("input[name=att]:checked").value==="yes";
+    const wish=$("wish").value.trim();
+    const name=$("gName").value.trim();
+    const msg="Hi! This is "+name+". "+
+      (yes
+        ?"I will attend the wedding of Andrew & Carmel ("+sel.value+" guest"+(sel.value>1?"s":"")+" including me)."
+        :"Sorry, I can’t attend the wedding of Andrew & Carmel.")+
+      (wish?" Message: "+wish:"");
+    $("note").textContent=lang==="ta"?"WhatsApp திறக்கிறது…":"Opening WhatsApp to send your response…";
+    window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(msg),"_blank");
+  };
+
+  // Music
+  const bgm=$("bgm"), mbtn=$("musicBtn");
+  let wantMusic=false;
+  if(CONFIG.music){
+    bgm.src=CONFIG.music;bgm.volume=CONFIG.musicVolume;
+  }else{
+    mbtn.hidden=true;
+  }
+  function syncMusic(){mbtn.setAttribute("aria-pressed",wantMusic)}
+  function setMusic(on){
+    wantMusic=on;syncMusic();
+    if(on){const p=bgm.play();if(p&&p.catch)p.catch(()=>{wantMusic=false;syncMusic()})}
+    else bgm.pause();
+  }
+  mbtn.onclick=()=>setMusic(!wantMusic);
+
+  // Scroll reveal
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add("visible")});
+  },{threshold:.12});
+  document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+
+  // Rose petal rain
+  (function initRoseRain(){
+    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const canvas = $("roseRain");
+    const ctx2 = canvas.getContext("2d");
+    if(!ctx2) return;
+
+    const petals = [];
+    const maxPetals = Math.min(56, Math.max(26, Math.floor(window.innerWidth / 24)));
+    let w = 0, h = 0, dpr = 1;
+    let animId = 0;
+
+    function rand(min, max){ return Math.random() * (max - min) + min; }
+
+    function makePetal(resetToTop){
+      return {
+        x: rand(0, w),
+        y: resetToTop ? rand(-h, 0) : rand(0, h),
+        size: rand(7, 15),
+        speedY: rand(0.6, 1.8),
+        sway: rand(0.4, 1.8),
+        angle: rand(0, Math.PI * 2),
+        rot: rand(-0.02, 0.02),
+        drift: rand(-0.35, 0.35),
+        hue: rand(343, 356),
+        sat: rand(62, 78),
+        light: rand(45, 62),
+        alpha: rand(0.45, 0.85)
+      };
+    }
+
+    function resize(){
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      ctx2.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function drawPetal(p){
+      ctx2.save();
+      ctx2.translate(p.x, p.y);
+      ctx2.rotate(p.angle);
+      const g = ctx2.createLinearGradient(-p.size, -p.size, p.size, p.size);
+      g.addColorStop(0, "hsla("+p.hue+","+p.sat+"%,"+(p.light + 8)+"%,"+p.alpha+")");
+      g.addColorStop(1, "hsla("+p.hue+","+(p.sat - 12)+"%,"+(p.light - 10)+"%,"+Math.max(0.22, p.alpha - 0.18)+")");
+      ctx2.fillStyle = g;
+      ctx2.beginPath();
+      ctx2.moveTo(0, -p.size);
+      ctx2.bezierCurveTo(p.size * 0.9, -p.size * 0.2, p.size * 0.7, p.size, 0, p.size * 0.85);
+      ctx2.bezierCurveTo(-p.size * 0.7, p.size, -p.size * 0.9, -p.size * 0.2, 0, -p.size);
+      ctx2.fill();
+      ctx2.restore();
+    }
+
+    function step(){
+      ctx2.clearRect(0, 0, w, h);
+      for(let i = 0; i < petals.length; i++){
+        const p = petals[i];
+        p.y += p.speedY;
+        p.x += Math.sin(p.y * 0.02 + p.sway) * 0.45 + p.drift;
+        p.angle += p.rot;
+        if(p.y > h + 20 || p.x < -30 || p.x > w + 30){
+          petals[i] = makePetal(true);
+          petals[i].y = -20;
+        }
+        drawPetal(petals[i]);
+      }
+      animId = requestAnimationFrame(step);
+    }
+
+    function setRunning(run){
+      if(run && !animId) animId = requestAnimationFrame(step);
+      if(!run && animId){ cancelAnimationFrame(animId); animId = 0; }
+    }
+
+    resize();
+    for(let i = 0; i < maxPetals; i++) petals.push(makePetal(false));
+    setRunning(true);
+
+    window.addEventListener("resize", resize, { passive: true });
+    document.addEventListener("visibilitychange", ()=>setRunning(!document.hidden));
+  })();
+})();
+</script>
+</body>
+</html>
