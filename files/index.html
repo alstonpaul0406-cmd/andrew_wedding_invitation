@@ -201,6 +201,16 @@ input[type=text],select{
 .choice input:checked+span{background:var(--maroon);border-color:var(--maroon);color:var(--bg)}
 .note{font-size:.9rem;margin-top:14px;min-height:1.4em}
 
+.wall{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:24px;text-align:left}
+.wall .card{
+  background:var(--card);border:1px solid var(--line);border-radius:4px 16px 16px 4px;padding:14px 16px;
+  box-shadow:0 6px 16px rgba(122,31,43,.1);transform:rotate(var(--r,-1deg));
+  animation:cardIn .5s ease both
+}
+.wall .card p{color:var(--ink);font-style:italic;font-size:.95rem}
+.wall .card b{display:block;margin-top:8px;color:var(--maroon);font-family:var(--serif);font-size:1.05rem}
+@keyframes cardIn{from{opacity:0;transform:translateY(10px) rotate(var(--r,-1deg)) scale(.96)}to{opacity:1;transform:translateY(0) rotate(var(--r,-1deg)) scale(1)}}
+
 .music{
   position:fixed;left:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:70;width:46px;height:46px;
   padding:0;font-size:1.3rem;line-height:46px;text-align:center;background:var(--bg);color:var(--maroon);border:1.5px solid var(--maroon)
@@ -259,8 +269,13 @@ footer .sig{font:400 2.5rem var(--script);color:var(--maroon);line-height:1.3}
 }
 @keyframes floatCross{50%{transform:translateY(-15px) rotate(5deg)}}
 
+.floating-violin{
+  position:fixed;left:10px;bottom:170px;opacity:.16;font-size:1.6rem;z-index:1;
+  animation:floatCross 6.5s ease-in-out infinite reverse;pointer-events:none
+}
+
 @media (prefers-reduced-motion:reduce){
-  .cover,.hero-art,.waxseal,.scroll-cue span,.floating-cross,.reveal,.speech-bubble{animation:none;transition:none}
+  .cover,.hero-art,.waxseal,.scroll-cue span,.floating-cross,.floating-violin,.reveal,.speech-bubble{animation:none;transition:none}
 }
 @media(max-width:390px){
   section{padding-left:18px;padding-right:18px}
@@ -283,13 +298,13 @@ footer .sig{font:400 2.5rem var(--script);color:var(--maroon);line-height:1.3}
 <button type="button" class="music" id="musicBtn" aria-pressed="false" aria-label="Toggle background music">♪</button>
 <audio id="bgm" loop preload="none"></audio>
 <div class="floating-cross" aria-hidden="true">✝</div>
+<div class="floating-violin" aria-hidden="true">🎻</div>
 
 <div class="cover" id="cover">
   <div class="seal">
     <svg class="cross" width="30" height="42" viewBox="0 0 36 48" aria-hidden="true"><path d="M14 0h8v14h14v8H22v26h-8V22H0v-8h14z" fill="currentColor"/></svg>
     <p data-k="openP"></p>
     <h1 data-k="cn"></h1>
-    <p>13 · 12 · 2026</p>
     <button type="button" class="waxseal" id="openBtn" aria-label="Open invitation"><span>A&amp;C</span></button>
     <p data-k="openBtn"></p>
   </div>
@@ -410,12 +425,25 @@ footer .sig{font:400 2.5rem var(--script);color:var(--maroon);line-height:1.3}
       <label id="guestsRow"><span data-k="lGuests"></span>
         <select id="guests"></select>
       </label>
-      <label><span data-k="lWish"></span>
-        <input type="text" id="wish">
-      </label>
       <button type="submit" data-k="send"></button>
     </form>
     <p class="note" id="note"></p>
+  </section>
+
+  <section class="reveal">
+    <h2 data-k="gbH"></h2>
+    <p data-k="gbP"></p>
+    <form id="gbForm">
+      <label><span data-k="lName"></span>
+        <input type="text" id="gbName" required autocomplete="name">
+      </label>
+      <label><span data-k="gbWishLabel"></span>
+        <input type="text" id="gbWish" required>
+      </label>
+      <button type="submit" data-k="gbSend"></button>
+    </form>
+    <p class="note" id="gbNote"></p>
+    <div class="wall" id="gbWall"></div>
   </section>
 </main>
 
@@ -466,8 +494,10 @@ en:{
   map:"Open map", cal:"Add to calendar",
   rsvpH:"Will you join us?", rsvpP:"Let us know if you can make it.", lName:"Your name", lAtt:"Will you attend?",
   yes:"Yes, I’ll attend", no:"No, I can’t", lGuests:"Guests, including you", lWish:"Message for the couple (optional)", send:"Send RSVP on WhatsApp",
+  gbH:"Guestbook wall", gbP:"Leave a little note for Andrew & Teena — it will appear on this wall.",
+  gbWishLabel:"Your wish", gbSend:"Add to the wall", gbSent:"Thank you! Your wish has been added below.",
   foot0:"With love and blessings", foot1:'Andrew <span class="amp">&amp;</span> Teena', foot2:"13 · 12 · 2026",
-  scr:"Scratch here"
+  scr:"Scratch-card here"
 },
 ta:{
   openP:"உங்களை அன்புடன் அழைக்கிறோம்", cn:'ஆண்ட்ரூ <span class="amp">&amp;</span> கார்மல்', openBtn:"முத்திரையைத் தொடவும்",
@@ -491,9 +521,9 @@ ta:{
   map:"வரைபடம்", cal:"நாட்காட்டியில் சேர்",
   rsvpH:"நீங்கள் வருவீர்களா?", rsvpP:"சுற்றமும் நட்புடன் சூழ வருகை தந்து மணமக்களை ஆசீர்வதிக்கும்படி அன்புடன் அழைக்கின்றோம்.",
   lName:"உங்கள் பெயர்", lAtt:"வருகை உறுதி", yes:"வருகிறேன்", no:"வர இயலாது", lGuests:"உங்களுடன் சேர்த்து நபர்கள்",
-  lWish:"மணமக்களுக்கு வாழ்த்து (விருப்பம்)", send:"WhatsApp-இல் பதில் அனுப்பு",
-  foot0:"அன்புடனும் ஆசீர்வாதங்களுடனும்", foot1:'ஆண்ட்ரூ <span class="amp">&amp;</span> கார்மல்', foot2:"13 · 12 · 2026",
-  scr:"இங்கே தேய்க்கவும்"
+  lWish:"மணமக்களுக்கு வாழ்த்து (விருப்பம்)", send:"WhatsApp-இல் பதில் அனுப்பு",  gbH:"வாழ்த்து சுவர்", gbP:"ஆண்ட்ரூ & டீனாவுக்கு ஒரு சிறிய வாழ்த்து பகிரவும் — அது இந்த சுவரில் தோன்றும்.",
+  gbWishLabel:"உங்கள் வாழ்த்து", gbSend:"சுவரில் சேர்க்கவும்", gbSent:"நன்றி! உங்கள் வாழ்த்து கீழே சேர்க்கப்பட்டது.",  foot0:"அன்புடனும் ஆசீர்வாதங்களுடனும்", foot1:'ஆண்ட்ரூ <span class="amp">&amp;</span> கார்மல்', foot2:"13 · 12 · 2026",
+  scr:"மறைந்திருக்கும் நாளைக் காண்க"
 }
 };
 
@@ -656,16 +686,58 @@ ta:{
   $("rsvp").onsubmit=e=>{
     e.preventDefault();
     const yes=document.querySelector("input[name=att]:checked").value==="yes";
-    const wish=$("wish").value.trim();
     const name=$("gName").value.trim();
     const msg="Hi! This is "+name+". "+
       (yes
         ?"I will attend the wedding of Andrew & Teena ("+sel.value+" guest"+(sel.value>1?"s":"")+" including me)."
-        :"Sorry, I can’t attend the wedding of Andrew & Teena.")+
-      (wish?" Message: "+wish:"");
+        :"Sorry, I can’t attend the wedding of Andrew & Teena.");
     $("note").textContent=lang==="ta"?"WhatsApp திறக்கிறது…":"Opening WhatsApp to send your response…";
     window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(msg),"_blank");
   };
+
+  // Guestbook wall: shown only on this visitor's device (no shared backend),
+  // plus the wish is sent to the couple via WhatsApp.
+  const GB_KEY="gbWishes";
+  const gbSeed=[
+    {name:"Alston & Nimisha", msg:"Wishing you both a lifetime of love and laughter! ✝️"},
+    {name:"Family", msg:"So happy for you two — see you on the big day!"}
+  ];
+  function gbLoad(){
+    try{ return JSON.parse(localStorage.getItem(GB_KEY)) || []; }catch(e){ return []; }
+  }
+  function gbSave(list){
+    try{ localStorage.setItem(GB_KEY, JSON.stringify(list)); }catch(e){}
+  }
+  function gbRenderCard(wall, entry, animate){
+    const card=document.createElement("div");
+    card.className="card";
+    card.style.setProperty("--r",(Math.random()*4-2).toFixed(2)+"deg");
+    const p=document.createElement("p"); p.textContent="“"+entry.msg+"”";
+    const b=document.createElement("b"); b.textContent="— "+entry.name;
+    card.append(p,b);
+    if(!animate) card.style.animation="none";
+    wall.appendChild(card);
+  }
+  (function initGuestbook(){
+    const wall=$("gbWall");
+    if(!wall) return;
+    const stored=gbLoad();
+    gbSeed.forEach(entry=>gbRenderCard(wall, entry, false));
+    stored.forEach(entry=>gbRenderCard(wall, entry, false));
+    $("gbForm").onsubmit=e=>{
+      e.preventDefault();
+      const name=$("gbName").value.trim();
+      const msg=$("gbWish").value.trim();
+      if(!name||!msg) return;
+      const entry={name,msg};
+      const list=gbLoad(); list.push(entry); gbSave(list);
+      gbRenderCard(wall, entry, true);
+      $("gbForm").reset();
+      $("gbNote").textContent=T[lang].gbSent;
+      const waMsg="Guestbook wish from "+name+": "+msg;
+      window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(waMsg),"_blank");
+    };
+  })();
 
   // Music
   const bgm=$("bgm"), mbtn=$("musicBtn");
