@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#fffaf2">
 <meta name="color-scheme" content="light">
-<title>Andrew &amp; Carmel Tina — Catholic Wedding Invitation</title>
+<title>Andrew &amp; Teena — Catholic Wedding Invitation</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Great+Vibes&family=Jost:wght@400;500;600&family=Noto+Sans+Tamil:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -110,7 +110,7 @@ p{color:var(--muted)}
 
 /* 1. Groom proposal bubble appears at 1s */
 .speech-bubble.groom-bubble {
-  bottom: 34%;
+  bottom: 44%;
   right: 4%;
   animation-delay: 1s, 1.75s;
 }
@@ -121,7 +121,7 @@ p{color:var(--muted)}
 
 /* 2. Bride reply bubble appears at 4s (3s delay after Groom speaks) */
 .speech-bubble.bride-bubble {
-  bottom: 24%;
+  bottom: 12%;
   left: 4%;
   animation-delay: 4s, 4.75s;
 }
@@ -300,7 +300,7 @@ footer .sig{font:400 2.5rem var(--script);color:var(--maroon);line-height:1.3}
     <div class="hero-art-wrap">
       <img class="hero-art" src="./assets/catholic-wedding.png" alt="Illustrated Catholic wedding ceremony with bride, groom and priest">
       <!-- 1. Groom proposal appears first at 0.8s -->
-      <div class="speech-bubble groom-bubble">“Tina, will you marry me?”</div>
+      <div class="speech-bubble groom-bubble">“Teena, will you marry me?”</div>
       <!-- 2. Bride reply appears second at 2.6s (1.8s pause after proposal) -->
       <div class="speech-bubble bride-bubble">“Yes, Andrew! I’ve been waiting for this moment.”</div>
     </div>
@@ -444,7 +444,7 @@ const CONFIG = {
 const T = {
 en:{
   openP:"You are invited to the wedding of",
-  cn:'Andrew <span class="amp">&amp;</span> Carmel',
+  cn:'Andrew <span class="amp">&amp;</span> Teena',
   openBtn:"Tap the seal to open",
   tag:"Two Become One", ref:"Ephesians 5:31",
   intro:"With the blessings of the Almighty and our beloved families, we joyfully invite you to grace the wedding of",
@@ -459,14 +459,14 @@ en:{
   venueH:"Venue &amp; timings",
   e1t:"Wedding ceremony", e1time:"Sunday, 13 December 2026 · 4:00 pm", e1v:"Holy Family Shrine",
   e1a:"No. 193, V.O.C. Street, Ponniamman Medu, Kanakkan Chathram, Chennai – 110",
-  e2t:"Reception / Dinner", e2time:"Sunday, 13 December 2026 · 7:00 pm", e2v:"Aanur Grand",
+  e2t:"Reception / Dinner", e2time:"Sunday, 13 December 2026 · 7:00 pm", e2v:"Aarur Grand",
   e2a:"Opposite Dr. Ambedkar College, No. 760/1, M.K.B. Nagar, West Avenue, Vyasarpadi, Chennai – 600039",
   e3t:"Reception at Muttom · Kanyakumari", e3time:"Wednesday, 16 December 2026 · 3:30 pm", e3v:"JPR Mahal Thirumana Mandapam",
   e3a:"Church Road, Muttom, Kadiapattinam, Kanyakumari, Tamil Nadu – 629202", call3:"Call +91 98656 35380",
   map:"Open map", cal:"Add to calendar",
   rsvpH:"Will you join us?", rsvpP:"Let us know if you can make it.", lName:"Your name", lAtt:"Will you attend?",
   yes:"Yes, I’ll attend", no:"No, I can’t", lGuests:"Guests, including you", lWish:"Message for the couple (optional)", send:"Send RSVP on WhatsApp",
-  foot0:"With love and blessings", foot1:'Andrew <span class="amp">&amp;</span> Carmel', foot2:"13 · 12 · 2026",
+  foot0:"With love and blessings", foot1:'Andrew <span class="amp">&amp;</span> Teena', foot2:"13 · 12 · 2026",
   scr:"Scratch here"
 },
 ta:{
@@ -515,7 +515,7 @@ ta:{
     document.querySelectorAll(".lang button").forEach(b=>{
       b.setAttribute("aria-pressed", b.dataset.lang === l);
     });
-    document.title = l === "ta" ? "ஆண்ட்ரூ & கார்மல் — கத்தோலிக்க திருமண அழைப்பிதழ்" : "Andrew & Carmel — Catholic Wedding Invitation";
+    document.title = l === "ta" ? "ஆண்ட்ரூ & கார்மல் — கத்தோலிக்க திருமண அழைப்பிதழ்" : "Andrew & Teena — Catholic Wedding Invitation";
   }
   document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>apply(b.dataset.lang));
   apply("en");
@@ -523,13 +523,13 @@ ta:{
   // Google Calendar links
   const g = d => d.toISOString().replace(/[-:]|\.\d{3}/g,"");
   $("calBtn").href =
-    "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Andrew & Carmel Wedding")+
+    "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Andrew & Teena Wedding")+
     "&dates="+g(when)+"/"+g(end)+
     "&location="+encodeURIComponent("Holy Family Shrine, V.O.C. Street, Ponniamman Medu, Kanakkan Chathram, Chennai 600110");
 
   const w3 = new Date(CONFIG.start3), e3 = new Date(w3.getTime()+CONFIG.durationHours3*3600000);
   $("calBtn3").href =
-    "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Andrew & Carmel Wedding Reception")+
+    "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Andrew & Teena Wedding Reception")+
     "&dates="+g(w3)+"/"+g(e3)+
     "&location="+encodeURIComponent("Jeppiar Remi Bai Kalyana Mandapam,Church Rd, Muttom, Tamil Nadu");
 
@@ -660,8 +660,8 @@ ta:{
     const name=$("gName").value.trim();
     const msg="Hi! This is "+name+". "+
       (yes
-        ?"I will attend the wedding of Andrew & Carmel ("+sel.value+" guest"+(sel.value>1?"s":"")+" including me)."
-        :"Sorry, I can’t attend the wedding of Andrew & Carmel.")+
+        ?"I will attend the wedding of Andrew & Teena ("+sel.value+" guest"+(sel.value>1?"s":"")+" including me)."
+        :"Sorry, I can’t attend the wedding of Andrew & Teena.")+
       (wish?" Message: "+wish:"");
     $("note").textContent=lang==="ta"?"WhatsApp திறக்கிறது…":"Opening WhatsApp to send your response…";
     window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(msg),"_blank");
