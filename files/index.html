@@ -35,6 +35,7 @@ h2{font-size:2.2rem;color:var(--maroon);margin-bottom:12px}
 h2:after{content:"✦";display:block;font-size:.8rem;color:var(--gold);margin-top:7px}
 p{color:var(--muted)}
 .amp{color:var(--gold);font-style:italic}
+.name-initial{display:inline-block;font:600 1.12em var(--serif);line-height:.8;text-transform:uppercase}
 .lang{
   position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);right:12px;z-index:70;
   display:flex;border:1px solid var(--maroon);border-radius:999px;overflow:hidden;background:var(--bg)
@@ -163,6 +164,7 @@ p{color:var(--muted)}
 .q{font-size:.95rem}
 .orn{color:var(--gold);letter-spacing:.5em;font-size:.8rem}
 .who{font:400 clamp(2.5rem,11vw,3.6rem) var(--script);color:var(--maroon);line-height:1.2}
+html[lang="ta"] .who{font-size:1.6rem;white-space:nowrap}
 .par{font:600 1.12rem var(--serif);color:var(--ink)}
 .weds{font:italic 500 1.4rem var(--serif);color:var(--gold);margin:6px 0 2px}
 .scroll-cue{margin-top:16px;font-size:.82rem;color:var(--maroon);letter-spacing:.08em}
@@ -364,6 +366,8 @@ footer .sig{font:400 2.5rem var(--script);color:var(--maroon);line-height:1.3}
 .rings{position:relative;width:min(100%,300px);margin:18px auto 12px;height:180px}
 .rings svg{width:100%;display:block;overflow:visible}
 .ring circle{fill:none;stroke:url(#goldGrad);stroke-width:9}
+.ring-diamond .gem{fill:#dff6ff;stroke:#5f9fbe;stroke-width:1.5;stroke-linejoin:round}
+.ring-diamond .facet{fill:none;stroke:#89c5df;stroke-width:1}
 .ring-l{animation:ringL 5s ease-in-out infinite}
 .ring-r{animation:ringR 5s ease-in-out infinite}
 @keyframes ringL{0%,8%{transform:translateX(-46px)}42%,78%{transform:translateX(0)}100%{transform:translateX(-46px)}}
@@ -399,6 +403,8 @@ footer .sig{font:400 2.5rem var(--script);color:var(--maroon);line-height:1.3}
   .count b{font-size:1.55rem}
   .count span{font-size:.72rem}
 }
+@media(max-width:430px){html[lang="ta"] .who{font-size:1.2rem}}
+@media(max-width:370px){html[lang="ta"] .who{font-size:1.05rem}}
 </style>
 </head>
 <body class="locked">
@@ -539,7 +545,13 @@ footer .sig{font:400 2.5rem var(--script);color:var(--maroon);line-height:1.3}
           </linearGradient>
         </defs>
         <g class="ring ring-l"><circle cx="95" cy="82" r="38"/></g>
-        <g class="ring ring-r"><circle cx="145" cy="82" r="38"/></g>
+        <g class="ring ring-r">
+          <circle cx="145" cy="82" r="38"/>
+          <g class="ring-diamond">
+            <path class="gem" d="M145 31l11 10-11 14-11-14z"/>
+            <path class="facet" d="M134 41h22M145 31l-5 10 5 14 5-14z"/>
+          </g>
+        </g>
         <path class="sparkle" d="M120 36 L124 49 L137 53 L124 57 L120 70 L116 57 L103 53 L116 49 Z"/>
       </svg>
       <span class="h" style="--x:-70px;--d:0s">♥</span>
@@ -606,9 +618,9 @@ const CONFIG = {
   whatsappOnWish: false,   // true = also open WhatsApp with each guestbook wish
   firebase: {
     apiKey: "AIzaSyByvKwGNQzkGCAHDg5Cd-5ggbMpKJtvFVY",
-    authDomain: "andrew-teena-wedding.firebaseapp.com",
-    projectId: "andrew-teena-wedding",
-    storageBucket: "andrew-teena-wedding.firebasestorage.app",
+    authDomain: "Andrew-teena-wedding.firebaseapp.com",
+    projectId: "Andrew-teena-wedding",
+    storageBucket: "Andrew-teena-wedding.firebasestorage.app",
     messagingSenderId: "1039460812637",
     appId: "1:1039460812637:web:e9bcd4b6d4a0da95cf8ab4"
   },
@@ -621,11 +633,11 @@ const CONFIG = {
 const T = {
 en:{
   openP:"You are invited to the wedding of",
-  cn:'Andrew <span class="amp">&amp;</span> Teena',
+  cn:'<span class="name-initial">A</span>ndrew <span class="amp">&amp;</span> Teena',
   openBtn:"Tap the seal to open",
   tag:"Two Become One", ref:"Ephesians 5:31",
   intro:"With the blessings of the Almighty and our beloved families, we joyfully invite you to grace the wedding of",
-  groom:"M. Andrew Jackus", groomQ:"B.E (Mech)", groomPar:"S/o Mr. A. Maria Gilbert &amp; Mrs. L. Vinnarasi",
+  groom:'M. <span class="name-initial">A</span>ndrew Jackus', groomQ:"B.E (Mech)", groomPar:"S/o Mr. A. Maria Gilbert &amp; Mrs. L. Vinnarasi",
   weds:"weds",
   bride:"V. Carmel Teena", brideQ:"M.A. (Eng), B.Ed.", bridePar:"D/o Mr. T. Vigneswaran (a) Viji &amp; Mrs. J. Mary Sheela", brideEnd:"",
   scroll:"Scroll to reveal",
@@ -638,7 +650,7 @@ en:{
   e1a:"No. 193, V.O.C. Street, Ponniamman Medu, Kanakkan Chathram, Chennai – 110",
   e2t:"Reception / Dinner", e2time:"Sunday, 13 December 2026 · 7:00 pm", e2v:"Aarur Grand",
   e2a:"Opposite Dr. Ambedkar College, No. 760/1, M.K.B. Nagar, West Avenue, Vyasarpadi, Chennai – 600039",
-  e3t:"Reception at Muttom · Kanyakumari", e3time:"Wednesday, 16 December 2026 · 3:30 pm", e3v:"Jeppiar Remi Bai kalyana Mandapam",
+  e3t:"Reception at Muttom · Kanyakumari", e3time:"Wednesday, 16 December 2026 · 4:00 pm", e3v:"Jeppiar Remi Bai kalyana Mandapam",
   e3a:"Church Road, Muttom, Kadiapattinam, Kanyakumari, Tamil Nadu – 629202",
   map:"Open map", cal:"Add to calendar",
   joinH:"Celebrate with us", joinP:"Join us with family and friends to bless the couple and celebrate this joyful day.", lName:"Your name",
@@ -649,16 +661,16 @@ en:{
   stkPicked:"Selected: ", stkHint:" — tap again to remove",
   gbEmpty:"Be the first to write a wish ✨", gbErr:"Sorry, your wish could not be added. Please try again.",
   gbWait:"Please wait a few seconds before adding another wish.", gbOffline:"Showing wishes saved on this device only.", gbSend:"Add to the wall", gbSent:"Thank you! Your wish has been added below.",
-  foot0:"With love and blessings", foot1:'Andrew <span class="amp">&amp;</span> Teena', foot2:"13 · 12 · 2026",
+  foot0:"With love and blessings", foot1:'<span class="name-initial">A</span>ndrew <span class="amp">&amp;</span> Teena', foot2:"13 · 12 · 2026",
   scr:"scratch here"
 },
 ta:{
-  openP:"உங்களை அன்புடன் அழைக்கிறோம்", cn:'ஆன்ட்ரூ <span class="amp">&amp;</span> கார்மல்', openBtn:"முத்திரையைத் தொடவும்",
+  openP:"உங்களை அன்புடன் அழைக்கிறோம்", cn:'ஆன்ட்ரூ <span class="amp">&amp;</span> டீனா', openBtn:"முத்திரையைத் தொடவும்",
   tag:"அன்பே உங்கள் வாழ்வுக்கு ஆணிவேரும் அடித்தளமுமாய் அமைவதாக", ref:"எபேசியர் 5:31",
   intro:"கர்த்தராகிய இயேசு கிறிஸ்துவின் பெருங்கிருபையால், தேவனுடைய சித்தத்தின்படி பெரியோர்களால் நிச்சயிக்கப்பட்ட",
-  groom:"திருநிறைச்செல்வன் M. ஆன்ட்ரூ ஜாக்கூஸ்", groomQ:"B.E (Mech)", groomPar:"திரு. A. மரிய கில்பர்ட் – திருமதி L. வின்னரசி அவர்களின் இளைய குமாரன்",
+  groom:"திருநிறை செல்வன் M. ஆன்ட்ரூ ஜாக்கூஸ்", groomQ:"B.E (Mech)", groomPar:"திரு. A. மரிய கில்பர்ட் – திருமதி L. வின்னரசி அவர்களின் இளைய குமாரன்",
   weds:"என்கிற வரனுக்கும்",
-  bride:"செல்வி V. கார்மல் டீனா", brideQ:"M.A. (Eng), B.Ed.", bridePar:"திரு. T. விக்னேஸ்வரன் (எ) விஜி – திருமதி J. மேரி ஷீலா அவர்களின் மூத்த மகள்", brideEnd:"என்கிற கன்னிகைக்கும் திருமணம் நடைபெற உள்ளது.",
+  bride:"திருவளர் செல்வி V. கார்மல் டீனா", brideQ:"M.A. (Eng), B.Ed.", bridePar:"திரு. T. விக்னேஸ்வரன் (எ) விஜி – திருமதி J. மேரி ஷீலா அவர்களின் மூத்த மகள்", brideEnd:"என்கிற கன்னிகைக்கும் திருமணம் நடைபெற உள்ளது.",
   scroll:"கீழே காண்க",
   saveH:"நாள் குறித்துக்கொள்ளுங்கள்", saveP:"Scratch to reveal the date.", dMeta:"டிசம்பர் 2026 · ஞாயிற்றுக்கிழமை",
   days:"நாட்கள்", hours:"மணி", mins:"நிமிடம்", secs:"விநாடி",
@@ -680,7 +692,7 @@ ta:{
   stkLabel:"ஒரு ஸ்டிக்கர் சேர்க்கவும் (விருப்பம்)", stkSearch:"ஸ்டிக்கர் தேடுக — சிலுவை, புறா, மோதிரம்…", stkNone:"ஸ்டிக்கர் கிடைக்கவில்லை",
   stkPicked:"தேர்ந்தெடுத்தது: ", stkHint:" — நீக்க மீண்டும் தொடவும்",
   gbEmpty:"முதல் வாழ்த்தை நீங்களே எழுதுங்கள் ✨", gbErr:"மன்னிக்கவும், வாழ்த்தைச் சேர்க்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
-  gbWait:"சில விநாடிகள் கழித்து மீண்டும் முயற்சிக்கவும்.", gbOffline:"இந்த சாதனத்தில் சேமித்த வாழ்த்துகள் மட்டும் காட்டப்படுகின்றன.", gbSend:"சுவரில் சேர்க்கவும்", gbSent:"நன்றி! உங்கள் வாழ்த்து கீழே சேர்க்கப்பட்டது.",  foot0:"அன்புடனும் ஆசீர்வாதங்களுடனும்", foot1:'ஆன்ட்ரூ <span class="amp">&amp;</span> கார்மல்', foot2:"13 · 12 · 2026"
+  gbWait:"சில விநாடிகள் கழித்து மீண்டும் முயற்சிக்கவும்.", gbOffline:"இந்த சாதனத்தில் சேமித்த வாழ்த்துகள் மட்டும் காட்டப்படுகின்றன.", gbSend:"சுவரில் சேர்க்கவும்", gbSent:"நன்றி! உங்கள் வாழ்த்து கீழே சேர்க்கப்பட்டது.",  foot0:"அன்புடனும் ஆசீர்வாதங்களுடனும்", foot1:'ஆன்ட்ரூ <span class="amp">&amp;</span> டீனா', foot2:"13 · 12 · 2026"
 }
 };
 
@@ -762,7 +774,7 @@ const stk={sel:"",q:""};   // current picker state
     document.querySelectorAll(".lang button").forEach(b=>{
       b.setAttribute("aria-pressed", b.dataset.lang === l);
     });
-    document.title = l === "ta" ? "ஆன்ட்ரூ & கார்மல் — கத்தோலிக்க திருமண அழைப்பிதழ்" : "Andrew & Teena — Wedding Invitation";
+    document.title = l === "ta" ? "ஆன்ட்ரூ & டீனா — கத்தோலிக்க திருமண அழைப்பிதழ்" : "Andrew & Teena — Wedding Invitation";
   }
   document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>apply(b.dataset.lang));
   apply("en");
