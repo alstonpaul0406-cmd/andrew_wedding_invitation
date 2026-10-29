@@ -48,10 +48,31 @@ p{color:var(--muted)}
   background-image:radial-gradient(circle at 50% 30%,rgba(224,184,79,.25),transparent 60%);
   transition:opacity 1s ease,transform 1.2s ease;overflow:auto
 }
-.cover:before{content:"";position:absolute;inset:14px;border:1px solid var(--line);border-radius:8px;pointer-events:none}
+.cover:before{content:"";position:absolute;inset:14px;border:1px solid var(--line);border-radius:8px;pointer-events:none;z-index:1}
 .cover.open{opacity:0;transform:scale(1.06);pointer-events:none}
 .cover.gone{display:none}
-.seal{width:min(92vw,390px);position:relative;z-index:1}
+
+/* Video background on the "tap the seal" cover */
+.cover-bg{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:28% center; /* keeps the couple + heart balloon in view */
+  z-index:0;pointer-events:none;
+}
+/* Portrait phones: video fills the top, text sits below it so the couple is never hidden */
+@media (max-aspect-ratio:1/1){
+  .cover{padding-top:calc(env(safe-area-inset-top,0px) + 41svh)}
+  .cover-bg{
+    height:46svh;bottom:auto;
+    -webkit-mask-image:linear-gradient(#000 72%,transparent);mask-image:linear-gradient(#000 72%,transparent);
+  }
+  .seal{margin-top:auto}
+}
+
+.seal{
+  width:min(92vw,390px);position:relative;z-index:2;
+  padding:24px 0;
+  background:radial-gradient(closest-side,rgba(255,250,242,.75),rgba(255,250,242,0)); /* soft glow keeps text readable over the flowers */
+}
 .seal .cross{color:var(--gold)}
 .seal h1{font:400 clamp(2.8rem,14vw,4rem) var(--script);color:var(--maroon);margin:10px 0 0;line-height:1.2}
 .seal p{margin:8px 0}
@@ -95,8 +116,6 @@ p{color:var(--muted)}
   transform: translateY(12px) scale(0.9);
   animation: bubblePopIn 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, bubbleFloat 4s ease-in-out infinite alternate;
 }
-
-/* Speech bubble tail indicators */
 .speech-bubble:after {
   content: "";
   position: absolute;
@@ -107,8 +126,6 @@ p{color:var(--muted)}
   border-right: 1.5px solid var(--gold);
   border-bottom: 1.5px solid var(--gold);
 }
-
-/* 1. Groom proposal bubble appears at 1s */
 .speech-bubble.groom-bubble {
   bottom: 44%;
   right: 4%;
@@ -118,8 +135,6 @@ p{color:var(--muted)}
   right: 20px;
   transform: rotate(45deg);
 }
-
-/* 2. Bride reply bubble appears at 4s (3s delay after Groom speaks) */
 .speech-bubble.bride-bubble {
   bottom: 12%;
   left: 4%;
@@ -129,14 +144,12 @@ p{color:var(--muted)}
   left: 20px;
   transform: rotate(45deg);
 }
-
 @keyframes bubblePopIn {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
 }
-
 @keyframes bubbleFloat {
   0% { transform: translateY(0); }
   100% { transform: translateY(-6px); }
@@ -274,8 +287,46 @@ footer .sig{font:400 2.5rem var(--script);color:var(--maroon);line-height:1.3}
   animation:floatCross 6.5s ease-in-out infinite reverse;pointer-events:none
 }
 
+/* ---- Video behind "Celebrate with us" ---- */
+.joyvid{position:relative;overflow:hidden;isolation:isolate;background:var(--bg2);border-top:1px solid var(--line)}
+.joyvid .bgvid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:-2}
+.joyvid:before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(to bottom,var(--bg) 0,rgba(255,250,242,.5) 14%,rgba(255,250,242,.42) 86%,var(--bg) 100%)
+}
+.joyvid>section{border-top:0}
+.joyvid h2{display:inline-block;background:rgba(255,250,242,.9);padding:8px 28px 4px;border-radius:22px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.joyvid h2:after{margin-top:3px}
+.joyvid .section-intro{background:rgba(255,250,242,.88);padding:14px 18px;border-radius:16px;color:var(--ink);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+
+/* ---- Rings animation (replaces RSVP) ---- */
+.rings{position:relative;width:min(100%,300px);margin:18px auto 12px;height:180px}
+.rings svg{width:100%;display:block;overflow:visible}
+.ring circle{fill:none;stroke:url(#goldGrad);stroke-width:9}
+.ring-l{animation:ringL 5s ease-in-out infinite}
+.ring-r{animation:ringR 5s ease-in-out infinite}
+@keyframes ringL{0%,8%{transform:translateX(-46px)}42%,78%{transform:translateX(0)}100%{transform:translateX(-46px)}}
+@keyframes ringR{0%,8%{transform:translateX(46px)}42%,78%{transform:translateX(0)}100%{transform:translateX(46px)}}
+.sparkle{fill:var(--gold2);transform-box:fill-box;transform-origin:center;opacity:0;animation:spark 5s ease-in-out infinite}
+@keyframes spark{0%,40%{opacity:0;transform:scale(0) rotate(0)}52%{opacity:1;transform:scale(1.25) rotate(45deg)}70%{opacity:1;transform:scale(1) rotate(90deg)}85%,100%{opacity:0;transform:scale(0) rotate(135deg)}}
+.rings .h{
+  position:absolute;left:50%;bottom:10px;color:#c4455a;font-size:1.1rem;opacity:0;pointer-events:none;
+  animation:heartUp 4s ease-in infinite;animation-delay:var(--d)
+}
+@keyframes heartUp{
+  0%{opacity:0;transform:translate(0,0) scale(.6)}
+  15%{opacity:.9}
+  100%{opacity:0;transform:translate(var(--x),-130px) scale(1.15)}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .ring-l,.ring-r,.sparkle,.rings .h{animation:none}
+  .sparkle{opacity:1}
+  .rings .h{display:none}
+}
 @media (prefers-reduced-motion:reduce){
   .cover,.hero-art,.waxseal,.scroll-cue span,.floating-cross,.floating-violin,.reveal,.speech-bubble{animation:none;transition:none}
+  .cover-bg{display:none}
 }
 @media(max-width:390px){
   section{padding-left:18px;padding-right:18px}
@@ -301,6 +352,11 @@ footer .sig{font:400 2.5rem var(--script);color:var(--maroon);line-height:1.3}
 <div class="floating-violin" aria-hidden="true">🎻</div>
 
 <div class="cover" id="cover">
+  <!-- Couple with heart balloon video background for the cover -->
+  <video class="cover-bg" id="coverBg" autoplay muted loop playsinline preload="auto"
+         poster="./assets/cover-fly.jpg" aria-hidden="true">
+    <source src="./assets/cover-fly.mp4" type="video/mp4">
+  </video>
   <div class="seal">
     <svg class="cross" width="30" height="42" viewBox="0 0 36 48" aria-hidden="true"><path d="M14 0h8v14h14v8H22v26h-8V22H0v-8h14z" fill="currentColor"/></svg>
     <p data-k="openP"></p>
@@ -314,9 +370,7 @@ footer .sig{font:400 2.5rem var(--script);color:var(--maroon);line-height:1.3}
   <section class="hero reveal">
     <div class="hero-art-wrap">
       <img class="hero-art" src="./assets/catholic-wedding.png" alt="Illustrated Catholic wedding ceremony with bride, groom and priest">
-      <!-- 1. Groom proposal appears first at 0.8s -->
       <div class="speech-bubble groom-bubble">“Teena, will you marry me?”</div>
-      <!-- 2. Bride reply appears second at 2.6s (1.8s pause after proposal) -->
       <div class="speech-bubble bride-bubble">“Yes, Andrew! I’ve been waiting for this moment.”</div>
     </div>
     <p class="tag" data-k="tag"></p>
@@ -408,27 +462,32 @@ footer .sig{font:400 2.5rem var(--script);color:var(--maroon);line-height:1.3}
     </section>
   </div>
 
-  <section class="reveal">
-    <h2 data-k="rsvpH"></h2>
-    <p data-k="rsvpP"></p>
-    <form id="rsvp">
-      <label><span data-k="lName"></span>
-        <input type="text" id="gName" required autocomplete="name">
-      </label>
-      <div>
-        <p style="margin-bottom:6px;color:var(--ink)" data-k="lAtt"></p>
-        <div class="choice">
-          <label><input type="radio" name="att" value="yes" checked><span data-k="yes"></span></label>
-          <label><input type="radio" name="att" value="no"><span data-k="no"></span></label>
-        </div>
-      </div>
-      <label id="guestsRow"><span data-k="lGuests"></span>
-        <select id="guests"></select>
-      </label>
-      <button type="submit" data-k="send"></button>
-    </form>
-    <p class="note" id="note"></p>
+  <!-- Ring-exchange video plays behind "Celebrate with us" -->
+  <div class="joyvid" data-vidwrap>
+  <video class="bgvid" data-src="./assets/rings-bg.mp4" poster="./assets/rings-bg.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+  <section class="reveal joy">
+    <h2 data-k="joinH"></h2>
+    <div class="rings" aria-hidden="true">
+      <svg viewBox="0 0 240 150" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#b8860b"/><stop offset=".45" stop-color="#f0d27a"/><stop offset="1" stop-color="#a9760a"/>
+          </linearGradient>
+        </defs>
+        <g class="ring ring-l"><circle cx="95" cy="82" r="38"/></g>
+        <g class="ring ring-r"><circle cx="145" cy="82" r="38"/></g>
+        <path class="sparkle" d="M120 36 L124 49 L137 53 L124 57 L120 70 L116 57 L103 53 L116 49 Z"/>
+      </svg>
+      <span class="h" style="--x:-70px;--d:0s">♥</span>
+      <span class="h" style="--x:-35px;--d:.9s">♥</span>
+      <span class="h" style="--x:10px;--d:1.7s">♥</span>
+      <span class="h" style="--x:45px;--d:.4s">♥</span>
+      <span class="h" style="--x:75px;--d:1.3s">♥</span>
+      <span class="h" style="--x:-10px;--d:2.4s">♥</span>
+    </div>
+    <p class="section-intro" data-k="joinP"></p>
   </section>
+  </div>
 
   <section class="reveal">
     <h2 data-k="gbH"></h2>
@@ -462,7 +521,6 @@ const CONFIG = {
   start: "2026-12-13T16:00:00+05:30",
   durationHours: 2,
   whatsapp: "918072185338",
-  maxGuests: 10,
   start3: "2026-12-16T15:30:00+05:30",
   durationHours3: 3,
   music: "assets/UntilIFoundYou.mp3",
@@ -492,18 +550,17 @@ en:{
   e3t:"Reception at Muttom · Kanyakumari", e3time:"Wednesday, 16 December 2026 · 3:30 pm", e3v:"JPR Mahal Thirumana Mandapam",
   e3a:"Church Road, Muttom, Kadiapattinam, Kanyakumari, Tamil Nadu – 629202", call3:"Call +91 98656 35380",
   map:"Open map", cal:"Add to calendar",
-  rsvpH:"Will you join us?", rsvpP:"Let us know if you can make it.", lName:"Your name", lAtt:"Will you attend?",
-  yes:"Yes, I’ll attend", no:"No, I can’t", lGuests:"Guests, including you", lWish:"Message for the couple (optional)", send:"Send RSVP on WhatsApp",
+  joinH:"Celebrate with us", joinP:"Join us with family and friends to bless the couple and celebrate this joyful day.", lName:"Your name",
   gbH:"Guestbook wall", gbP:"Leave a little note for Andrew & Teena — it will appear on this wall.",
   gbWishLabel:"Your wish", gbSend:"Add to the wall", gbSent:"Thank you! Your wish has been added below.",
   foot0:"With love and blessings", foot1:'Andrew <span class="amp">&amp;</span> Teena', foot2:"13 · 12 · 2026",
   scr:"Scratch-card here"
 },
 ta:{
-  openP:"உங்களை அன்புடன் அழைக்கிறோம்", cn:'ஆண்ட்ரூ <span class="amp">&amp;</span> கார்மல்', openBtn:"முத்திரையைத் தொடவும்",
+  openP:"உங்களை அன்புடன் அழைக்கிறோம்", cn:'ஆன்ட்ரூ <span class="amp">&amp;</span> கார்மல்', openBtn:"முத்திரையைத் தொடவும்",
   tag:"அன்பே உங்கள் வாழ்வுக்கு ஆணிவேரும் அடித்தளமுமாய் அமைவதாக", ref:"எபேசியர் 5:31",
   intro:"கர்த்தராகிய இயேசு கிறிஸ்துவின் பெருங்கிருபையால், தேவனுடைய சித்தத்தின்படி பெரியோர்களால் நிச்சயிக்கப்பட்ட",
-  groom:"திருநிறைச்செல்வன் M. ஆண்ட்ரூ ஜாக்கஸ்", groomQ:"B.E (Mech)", groomPar:"திரு. A. மரிய கில்பர்ட் – திருமதி L. வின்னரசி அவர்களின் இளைய குமாரன்",
+  groom:"திருநிறைச்செல்வன் M. ஆன்ட்ரூ ஜாக்கூஸ்", groomQ:"B.E (Mech)", groomPar:"திரு. A. மரிய கில்பர்ட் – திருமதி L. வின்னரசி அவர்களின் இளைய குமாரன்",
   weds:"என்கிற வரனுக்கும்",
   bride:"செல்வி V. கார்மல் டீனா", brideQ:"M.A. (Eng), B.Ed.", bridePar:"திரு. T. விக்னேஸ்வரன் (எ) விஜி – திருமதி J. மேரி ஷீலா அவர்களின் மூத்த மகள்", brideEnd:"என்கிற கன்னிகைக்கும் திருமணம் நடைபெற உள்ளது.",
   scroll:"கீழே காண்க",
@@ -514,15 +571,15 @@ ta:{
   venueH:"இடம் &amp; நேரம்",
   e1t:"திருமண அருட்சாதனம்", e1time:"ஞாயிற்றுக்கிழமை, 13 டிசம்பர் 2026 · மாலை 4:00 மணி", e1v:"திருக்குடும்ப ஆலயம்",
   e1a:"நெ: 193, வ.உ.சி. தெரு, பொன்னியம்மன் மேடு, கணக்கன் சத்திரம், சென்னை – 110",
-  e2t:"வரவேற்பு / விருந்து", e2time:"ஞாயிற்றுக்கிழமை, 13 டிசம்பர் 2026 · மாலை 7:00 மணி", e2v:"ஆனூர் கிராண்ட்",
+  e2t:"வரவேற்பு / விருந்து", e2time:"ஞாயிற்றுக்கிழமை, 13 டிசம்பர் 2026 · மாலை 7:00 மணி", e2v:"ஆரூர் கிராண்ட்",
   e2a:"டாக்டர் அம்பேத்கர் கல்லூரி எதிரில், நெ: 760/1, எம்.கே.பி. நகர், மேற்கு அவென்யூ, வியாசர்பாடி, சென்னை – 600039",
   e3t:"வரவேற்பு விருந்து · முட்டம், கன்னியாகுமரி", e3time:"புதன்கிழமை, 16 டிசம்பர் 2026 · மாலை 3:30 மணி", e3v:"JPR மஹால் திருமண மண்டபம்",
   e3a:"முட்டம், சர்ச் சாலை, கடியாப்பட்டினம், கன்னியாகுமரி, தமிழ்நாடு – 629202", call3:"அழைக்க +91 98656 35380",
   map:"வரைபடம்", cal:"நாட்காட்டியில் சேர்",
-  rsvpH:"நீங்கள் வருவீர்களா?", rsvpP:"சுற்றமும் நட்புடன் சூழ வருகை தந்து மணமக்களை ஆசீர்வதிக்கும்படி அன்புடன் அழைக்கின்றோம்.",
-  lName:"உங்கள் பெயர்", lAtt:"வருகை உறுதி", yes:"வருகிறேன்", no:"வர இயலாது", lGuests:"உங்களுடன் சேர்த்து நபர்கள்",
-  lWish:"மணமக்களுக்கு வாழ்த்து (விருப்பம்)", send:"WhatsApp-இல் பதில் அனுப்பு",  gbH:"வாழ்த்து சுவர்", gbP:"ஆண்ட்ரூ & டீனாவுக்கு ஒரு சிறிய வாழ்த்து பகிரவும் — அது இந்த சுவரில் தோன்றும்.",
-  gbWishLabel:"உங்கள் வாழ்த்து", gbSend:"சுவரில் சேர்க்கவும்", gbSent:"நன்றி! உங்கள் வாழ்த்து கீழே சேர்க்கப்பட்டது.",  foot0:"அன்புடனும் ஆசீர்வாதங்களுடனும்", foot1:'ஆண்ட்ரூ <span class="amp">&amp;</span> கார்மல்', foot2:"13 · 12 · 2026",
+  joinH:"எங்களுடன் கொண்டாடுங்கள்", joinP:"சுற்றமும் நட்புடன் சூழ வருகை தந்து மணமக்களை ஆசீர்வதிக்கும்படி அன்புடன் அழைக்கின்றோம்.",
+  lName:"உங்கள் பெயர்",
+  gbH:"வாழ்த்து சுவர்", gbP:"ஆன்ட்ரூ & டீனாவுக்கு ஒரு சிறிய வாழ்த்து பகிரவும் — அது இந்த சுவரில் தோன்றும்.",
+  gbWishLabel:"உங்கள் வாழ்த்து", gbSend:"சுவரில் சேர்க்கவும்", gbSent:"நன்றி! உங்கள் வாழ்த்து கீழே சேர்க்கப்பட்டது.",  foot0:"அன்புடனும் ஆசீர்வாதங்களுடனும்", foot1:'ஆன்ட்ரூ <span class="amp">&amp;</span> கார்மல்', foot2:"13 · 12 · 2026",
   scr:"மறைந்திருக்கும் நாளைக் காண்க"
 }
 };
@@ -545,7 +602,7 @@ ta:{
     document.querySelectorAll(".lang button").forEach(b=>{
       b.setAttribute("aria-pressed", b.dataset.lang === l);
     });
-    document.title = l === "ta" ? "ஆண்ட்ரூ & கார்மல் — கத்தோலிக்க திருமண அழைப்பிதழ்" : "Andrew & Teena — Catholic Wedding Invitation";
+    document.title = l === "ta" ? "ஆன்ட்ரூ & கார்மல் — கத்தோலிக்க திருமண அழைப்பிதழ்" : "Andrew & Teena — Catholic Wedding Invitation";
   }
   document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>apply(b.dataset.lang));
   apply("en");
@@ -568,7 +625,11 @@ ta:{
     const cv=$("cover");
     cv.classList.add("open");
     document.body.classList.remove("locked");
-    setTimeout(()=>cv.classList.add("gone"),1300);
+    setTimeout(()=>{
+      cv.classList.add("gone");
+      // stop the cover video once it is hidden (saves battery and data)
+      const cvVid=$("coverBg"); if(cvVid){cvVid.pause();cvVid.remove();}
+    },1300);
     if(CONFIG.music) setMusic(true);
   };
 
@@ -674,26 +735,6 @@ ta:{
   cv.addEventListener("pointermove",scratch);
   cv.addEventListener("pointerup",()=>{drawing=false;check()});
   cv.addEventListener("pointercancel",()=>drawing=false);
-
-  // RSVP
-  const sel=$("guests");
-  for(let i=1;i<=CONFIG.maxGuests;i++){
-    const o=document.createElement("option");o.value=i;o.textContent=i;sel.appendChild(o);
-  }
-  document.querySelectorAll("input[name=att]").forEach(r=>r.onchange=()=>{
-    $("guestsRow").style.display=document.querySelector("input[name=att]:checked").value==="no"?"none":"grid";
-  });
-  $("rsvp").onsubmit=e=>{
-    e.preventDefault();
-    const yes=document.querySelector("input[name=att]:checked").value==="yes";
-    const name=$("gName").value.trim();
-    const msg="Hi! This is "+name+". "+
-      (yes
-        ?"I will attend the wedding of Andrew & Teena ("+sel.value+" guest"+(sel.value>1?"s":"")+" including me)."
-        :"Sorry, I can’t attend the wedding of Andrew & Teena.");
-    $("note").textContent=lang==="ta"?"WhatsApp திறக்கிறது…":"Opening WhatsApp to send your response…";
-    window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(msg),"_blank");
-  };
 
   // Guestbook wall: shown only on this visitor's device (no shared backend),
   // plus the wish is sent to the couple via WhatsApp.
