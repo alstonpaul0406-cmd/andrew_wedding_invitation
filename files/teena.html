@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#fffaf2">
+<meta name="color-scheme" content="light">
+<title>Teena &amp; Andrew — Wedding Invitation</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Great+Vibes&family=Jost:wght@400;500;600&family=Noto+Sans+Tamil:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fffaf2;--bg2:#f7ecd8;--card:#fffdf8;--ink:#3b2a2a;--muted:#6b5a4e;
+  --maroon:#7a1f2b;--maroon2:#5a1420;--gold:#b8860b;--gold2:#e0b84f;
+  --line:rgba(184,134,11,.38);
+  --serif:"Cormorant Garamond","Noto Sans Tamil",Georgia,serif;
+  --script:"Great Vibes","Noto Sans Tamil",cursive;
+  --sans:"Jost","Noto Sans Tamil",system-ui,sans-serif;
+  box-sizing:border-box;color-scheme:light;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+body{
+  background:var(--bg);
+  background-image:radial-gradient(circle at 50% 0,rgba(224,184,79,.18),transparent 55%);
+  color:var(--ink);font-family:var(--sans);line-height:1.7;overflow-x:hidden;
+}
+body.locked{height:100vh;overflow:hidden}
+button,.btn{font:500 1rem var(--sans);cursor:pointer;border:0;border-radius:999px;padding:13px 26px;background:var(--maroon);color:var(--bg);text-decoration:none;display:inline-block}
+button:focus-visible,.btn:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--maroon);outline-offset:3px}
+.ghost{background:transparent;color:var(--maroon);border:1.5px solid var(--maroon)}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.2}
+section{padding:76px 22px;max-width:620px;margin:0 auto;text-align:center}
+section+section{border-top:1px solid var(--line)}
+h2{font-size:2.2rem;color:var(--maroon);margin-bottom:12px}
+h2:after{content:"✦";display:block;font-size:.8rem;color:var(--gold);margin-top:7px}
+p{color:var(--muted)}
+.amp{color:var(--gold);font-style:italic}
+.name-initial{display:inline-block;font:italic 400 1.12em var(--serif);line-height:.8;text-transform:uppercase}
+.lang{
+  position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);right:12px;z-index:70;
+  display:flex;border:1px solid var(--maroon);border-radius:999px;overflow:hidden;background:var(--bg)
+}
+.lang button{padding:8px 14px;font-size:.88rem;background:transparent;color:var(--maroon);border-radius:0}
+.lang button[aria-pressed=true]{background:var(--maroon);color:var(--bg)}
+
+.cover{
+  position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;text-align:center;
+  padding:22px;background:var(--bg);
+  background-image:radial-gradient(circle at 50% 30%,rgba(224,184,79,.25),transparent 60%);
+  transition:opacity 1s ease,transform 1.2s ease;overflow:auto
+}
+.cover:before{content:"";position:absolute;inset:14px;border:1px solid var(--line);border-radius:8px;pointer-events:none;z-index:1}
+.cover.open{opacity:0;transform:scale(1.06);pointer-events:none}
+.cover.gone{display:none}
+
+/* Video background on the "tap the seal" cover */
+.cover-bg{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:28% center; /* keeps the couple + heart balloon in view */
+  z-index:0;pointer-events:none;
+}
+/* Portrait phones: video fills the top, text sits below it so the couple is never hidden */
+@media (max-aspect-ratio:1/1){
+  .cover{padding-top:calc(env(safe-area-inset-top,0px) + 41svh)}
+  .cover-bg{
+    height:46svh;bottom:auto;
+    -webkit-mask-image:linear-gradient(#000 72%,transparent);mask-image:linear-gradient(#000 72%,transparent);
+  }
+  .seal{margin-top:auto}
+}
+
+.seal{
+  width:min(92vw,390px);position:relative;z-index:2;
+  padding:24px 0;
+  background:radial-gradient(closest-side,rgba(255,250,242,.75),rgba(255,250,242,0)); /* soft glow keeps text readable over the flowers */
+}
+.seal .cross{color:var(--gold)}
+.seal h1{font:400 clamp(2.8rem,14vw,4rem) var(--script);color:var(--maroon);margin:10px 0 0;line-height:1.2}
+.seal p{margin:8px 0}
+.waxseal{
+  margin:22px auto 12px;width:128px;height:128px;border:0;padding:0;border-radius:52% 48% 50% 50%/50% 52% 48% 50%;
+  background:radial-gradient(circle at 35% 30%,#b3394a,#7a1f2b 60%,#5a1420);color:var(--gold2);
+  font:600 2rem var(--serif);display:grid;place-items:center;cursor:pointer;
+  box-shadow:0 10px 22px rgba(90,20,32,.35),inset 0 0 0 7px rgba(224,184,79,.22),inset 0 0 0 8px rgba(90,20,32,.45);
+  animation:pulse 2.4s ease-in-out infinite
+}
+@keyframes pulse{50%{transform:scale(1.06)}}
+
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;padding-top:86px}
+.hero-art{
+  width:min(94vw,580px);aspect-ratio:1/1;border-radius:28px;object-fit:cover;
+  border:2px solid var(--gold);box-shadow:0 18px 50px rgba(90,20,32,.16),0 0 0 8px rgba(184,134,11,.09);
+  animation:artFloat 7s ease-in-out infinite;transform-origin:center;
+}
+@keyframes artFloat{
+  0%,100%{transform:translateY(0) scale(1)}
+  50%{transform:translateY(-7px) scale(1.018)}
+}
+.hero-art-wrap{position:relative;margin-bottom:8px}
+
+/* Speech Bubbles Overlay Styles */
+.speech-bubble {
+  position: absolute;
+  background: var(--card);
+  border: 1.5px solid var(--gold);
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--maroon);
+  box-shadow: 0 8px 22px rgba(90,20,32,0.18);
+  max-width: 200px;
+  text-align: center;
+  z-index: 5;
+  opacity: 0;
+  transform: translateY(12px) scale(0.9);
+  animation: bubblePopIn 0.75s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, bubbleFloat 4s ease-in-out infinite alternate;
+}
+.speech-bubble:after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  width: 12px;
+  height: 12px;
+  background: var(--card);
+  border-right: 1.5px solid var(--gold);
+  border-bottom: 1.5px solid var(--gold);
+}
+.speech-bubble.groom-bubble {
+  bottom: 44%;
+  right: 4%;
+  animation-delay: 1s, 1.75s;
+}
+.speech-bubble.groom-bubble:after {
+  right: 20px;
+  transform: rotate(45deg);
+}
+.speech-bubble.bride-bubble {
+  bottom: 12%;
+  left: 4%;
+  animation-delay: 4s, 4.75s;
+}
+.speech-bubble.bride-bubble:after {
+  left: 20px;
+  transform: rotate(45deg);
+}
+@keyframes bubblePopIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes bubbleFloat {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-6px); }
+}
+
+.hero-art-wrap:after{
+  content:"✦  ✝  ✦";position:absolute;left:50%;bottom:-18px;transform:translateX(-50%);
+  color:var(--gold);font-size:1.15rem;letter-spacing:.28em;background:var(--bg);padding:0 10px
+}
+.tag{font:600 1.45rem var(--serif);color:var(--maroon)}
+.q{font-size:.95rem}
+.orn{color:var(--gold);letter-spacing:.5em;font-size:.8rem}
+.who{font:400 clamp(2.5rem,11vw,3.6rem) var(--script);color:var(--maroon);line-height:1.2}
+html[lang="ta"] .who{font-size:1.6rem;white-space:nowrap}
+.par{font:600 1.12rem var(--serif);color:var(--ink)}
+.weds{font:italic 500 1.4rem var(--serif);color:var(--gold);margin:6px 0 2px}
+.scroll-cue{margin-top:16px;font-size:.82rem;color:var(--maroon);letter-spacing:.08em}
+.scroll-cue span{display:block;font-size:1.4rem;animation:bob 1.8s infinite}
+@keyframes bob{50%{transform:translateY(6px)}}
+
+.section-intro{max-width:470px;margin:0 auto}
+.date-wrap{
+  position:relative;margin:24px auto;width:100%;max-width:360px;height:175px;
+  color:var(--ink);display:flex;flex-direction:column;justify-content:center
+}
+.date-wrap .d,.date-wrap .m{visibility:hidden;opacity:0;transition:opacity .45s ease}
+.date-wrap.revealed .d,.date-wrap.revealed .m{visibility:visible;opacity:1}
+.date-wrap .d{font:600 3.5rem var(--serif);color:var(--maroon)}
+.date-wrap .m{font-size:1.05rem;color:var(--muted)}
+.date-wrap canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;transition:opacity .8s}
+.date-wrap canvas.done{opacity:0;pointer-events:none}
+.count{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
+.count div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 4px}
+.count b{display:block;font:600 2rem var(--serif);color:var(--maroon)}
+.count span{font-size:.8rem;color:var(--muted)}
+
+.story-card{
+  margin:24px auto 0;background:var(--card);border:1px solid var(--line);border-radius:20px;
+  overflow:hidden;box-shadow:0 10px 28px rgba(122,31,43,.08)
+}
+.story-card img{width:100%;display:block}
+.caption{padding:16px 20px 20px}
+.caption strong{font:600 1.5rem var(--serif);color:var(--maroon)}
+
+.ev{
+  background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 20px;margin-top:20px;
+  box-shadow:0 8px 22px rgba(122,31,43,.07)
+}
+.ev h3{font-size:1.55rem;color:var(--maroon)}
+.ev .t{color:var(--ink);margin:6px 0}
+.ev .v{font:600 1.4rem var(--serif);color:var(--ink)}
+.ev .a{font-size:.94rem;margin:4px 0 16px}
+.row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cross-divider{color:var(--gold);font-size:1.2rem;margin:4px 0}
+
+form{display:grid;gap:18px;text-align:left;margin-top:22px}
+label{display:grid;gap:6px;font-size:.95rem;color:var(--ink)}
+input[type=text],select{
+  font:inherit;padding:13px 14px;border-radius:10px;border:1px solid var(--gold);background:var(--card);color:var(--ink)
+}
+.choice{display:flex;gap:10px}
+.choice label{flex:1;display:block}
+.choice input{position:absolute;opacity:0}
+.choice span{display:block;text-align:center;padding:13px 8px;border-radius:10px;border:1px solid var(--gold);background:var(--card);cursor:pointer}
+.choice input:checked+span{background:var(--maroon);border-color:var(--maroon);color:var(--bg)}
+.note{font-size:.9rem;margin-top:14px;min-height:1.4em}
+
+.wall{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:24px;text-align:left}
+.wall .card{
+  background:var(--card);border:1px solid var(--line);border-radius:4px 16px 16px 4px;padding:14px 16px;
+  box-shadow:0 6px 16px rgba(122,31,43,.1);transform:rotate(var(--r,-1deg));
+  animation:cardIn .5s ease both
+}
+.wall .card p{color:var(--ink);font-style:italic;font-size:.95rem}
+.wall .card b{display:block;margin-top:8px;color:var(--maroon);font-family:var(--serif);font-size:1.05rem}
+@keyframes cardIn{from{opacity:0;transform:translateY(10px) rotate(var(--r,-1deg)) scale(.96)}to{opacity:1;transform:translateY(0) rotate(var(--r,-1deg)) scale(1)}}
+
+.music{
+  position:fixed;left:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:70;width:46px;height:46px;
+  padding:0;font-size:1.3rem;line-height:46px;text-align:center;background:var(--bg);color:var(--maroon);border:1.5px solid var(--maroon)
+}
+.music[aria-pressed=true]{background:var(--maroon);color:var(--bg)}
+
+.rose-rain{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:8;
+  transition:opacity 1s ease;
+}
+.rose-rain.off{opacity:0}
+.burst-layer{z-index:75}
+
+/* ---- Background videos (muted, lazy, play only while on screen) ---- */
+.sea{position:relative;overflow:hidden;isolation:isolate;background:linear-gradient(#cfeaee,#8fcad4)}
+.sea-bg{position:absolute;inset:0;z-index:-2}
+.sea-bg video{position:sticky;top:0;display:block;width:100%;height:100vh;height:100svh;object-fit:cover}
+.sea:before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(to bottom,var(--bg) 0,rgba(255,250,242,.36) 10%,rgba(255,250,242,.28) 90%,var(--bg) 100%)
+}
+.sea>section{border-top:0}
+.sea h2{display:inline-block;background:rgba(255,250,242,.88);padding:8px 28px 4px;border-radius:22px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.sea h2:after{margin-top:3px}
+
+.finale{
+  position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;justify-content:center;
+  overflow:hidden;isolation:isolate;background:#3a1a1c;border-top:0;
+  padding:0 24px calc(env(safe-area-inset-bottom,0px) + 84px)
+}
+.finale .bgvid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.finale:before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(to bottom,rgba(40,12,16,.4) 0,rgba(40,12,16,0) 28%,rgba(40,12,16,0) 50%,rgba(40,12,16,.8) 100%)
+}
+.finale-text{position:relative;max-width:420px}
+.finale p{color:#fff4e4;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.finale .sig{font:400 clamp(2.2rem,10vw,3rem) var(--script);color:#fff;line-height:1.3;white-space:nowrap}
+.finale .amp{color:var(--gold2)}
+
+footer{padding:48px 24px 72px;text-align:center;border-top:1px solid var(--line)}
+footer p{margin-top:6px}
+footer .sig{font:400 2.5rem var(--script);color:var(--maroon);line-height:1.3}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:none}
+
+.floating-cross{
+  position:fixed;right:8px;bottom:100px;color:rgba(122,31,43,.14);font-size:2rem;z-index:1;
+  animation:floatCross 5s ease-in-out infinite;pointer-events:none
+}
+@keyframes floatCross{50%{transform:translateY(-15px) rotate(5deg)}}
+
+.floating-violin{
+  position:fixed;left:10px;bottom:170px;opacity:.16;font-size:1.6rem;z-index:1;
+  animation:floatCross 6.5s ease-in-out infinite reverse;pointer-events:none
+}
+
+/* ---- Guestbook: floating wishes board ---- */
+.gb-board{
+  position:relative;margin-top:26px;border-radius:22px;overflow:hidden;border:1px solid var(--line);
+  background:radial-gradient(circle at 50% 0,rgba(224,184,79,.25),transparent 62%),linear-gradient(#fffdf8,#f7ecd8);
+  box-shadow:inset 0 0 40px rgba(184,134,11,.12)
+}
+.gb-sky{position:absolute;inset:0;pointer-events:none;z-index:0}
+.gb-sky span{
+  position:absolute;left:var(--l);bottom:-30px;font-size:var(--s);color:var(--c);opacity:0;
+  animation:skyUp var(--t) linear var(--dl) infinite
+}
+@keyframes skyUp{
+  0%{opacity:0;transform:translate(0,0) rotate(0)}
+  12%{opacity:.55}
+  85%{opacity:.35}
+  100%{opacity:0;transform:translate(var(--sw),-560px) rotate(40deg)}
+}
+.gb-board .wall{
+  position:relative;z-index:1;display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:22px 14px;margin:0;
+  padding:26px 14px 20px;max-height:540px;overflow-y:auto;overscroll-behavior:contain
+}
+.gb-board .wall .card{
+  position:relative;flex:0 1 150px;min-width:130px;
+  animation:cardIn .5s ease both,noteBob var(--bd,5s) ease-in-out var(--bdelay,0s) infinite alternate
+}
+.gb-board .wall .card:before{
+  content:"";position:absolute;top:-7px;left:50%;width:13px;height:13px;margin-left:-6px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#f0d27a,#b8860b);box-shadow:0 2px 4px rgba(90,20,32,.35)
+}
+@keyframes noteBob{from{translate:0 0}to{translate:0 -7px}}
+.wall .card.c1{background:#fde8ea}
+.wall .card.c2{background:#fff1c9}
+.wall .card.c3{background:#e4f1e4}
+.wall .card img{display:block;width:100%;height:auto;border-radius:10px;margin-bottom:10px;border:1px solid var(--line);background:#fff}
+.gb-board .wall .card.has-img{flex-basis:230px}
+/* ---- Sticker picker + stickers on notes ---- */
+.stk-wrap{display:grid;gap:8px}
+.stk-title{font-size:.95rem;color:var(--ink)}
+.stk-wrap input[type=search]{font:inherit;padding:11px 14px;border-radius:10px;border:1px solid var(--gold);background:var(--card);color:var(--ink)}
+.stk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:8px;max-height:184px;overflow-y:auto;padding:4px;overscroll-behavior:contain}
+.stk-tile{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px 7px;border-radius:12px;background:var(--card);color:var(--ink);border:1.5px solid var(--line);font:500 .72rem var(--sans);line-height:1.2}
+.stk-tile svg,.stk-tile img{width:40px;height:40px;object-fit:contain;display:block}
+.stk-tile[aria-pressed=true]{border-color:var(--maroon);box-shadow:0 0 0 3px rgba(122,31,43,.18);background:#fff}
+.stk-none{grid-column:1/-1;text-align:center;color:var(--muted);font-style:italic;padding:12px}
+.stk-picked{font-size:.85rem;color:var(--maroon);min-height:1.2em}
+.card .stk{display:block;width:84px;height:84px;margin:0 auto 8px}
+.card .stk svg{width:100%;height:100%;display:block}
+.wall .card .stk-photo{width:130px;height:auto;max-width:100%;margin:0 auto 8px;border-radius:10px;border:1px solid var(--line);background:#fff}
+.gb-empty{position:relative;z-index:1;padding:46px 20px;font-style:italic;color:var(--muted)}
+.gb-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.chip{padding:7px 14px;font-size:.85rem;background:var(--card);color:var(--maroon);border:1px solid var(--gold)}
+.gb-colors{display:flex;align-items:center;gap:10px;font-size:.95rem;color:var(--ink)}
+.gb-colors>span{margin-right:4px}
+.dot{position:relative;width:34px;height:34px;display:block}
+.dot input{position:absolute;opacity:0;inset:0}
+.dot span{display:block;width:100%;height:100%;border-radius:50%;border:2px solid var(--line);cursor:pointer}
+.dot input:checked+span{border-color:var(--maroon);box-shadow:0 0 0 3px rgba(122,31,43,.2)}
+.dot input:focus-visible+span{outline:3px solid var(--maroon);outline-offset:2px}
+
+/* ---- Video behind "Celebrate with us" ---- */
+.joyvid{position:relative;overflow:hidden;isolation:isolate;background:var(--bg2);border-top:1px solid var(--line)}
+.joyvid .bgvid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:-2}
+.joyvid:before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(to bottom,var(--bg) 0,rgba(255,250,242,.5) 14%,rgba(255,250,242,.42) 86%,var(--bg) 100%)
+}
+.joyvid>section{border-top:0}
+.joyvid h2{display:inline-block;background:rgba(255,250,242,.9);padding:8px 28px 4px;border-radius:22px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.joyvid h2:after{margin-top:3px}
+.joyvid .section-intro{background:rgba(255,250,242,.88);padding:14px 18px;border-radius:16px;color:var(--ink);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+
+/* ---- Rings animation (replaces RSVP) ---- */
+.rings{position:relative;width:min(100%,300px);margin:18px auto 12px;height:180px}
+.rings svg{width:100%;display:block;overflow:visible}
+.ring circle{fill:none;stroke:url(#goldGrad);stroke-width:9}
+.ring-diamond .gem{fill:#dff6ff;stroke:#5f9fbe;stroke-width:1.5;stroke-linejoin:round}
+.ring-diamond .facet{fill:none;stroke:#89c5df;stroke-width:1}
+.ring-l{animation:ringL 5s ease-in-out infinite}
+.ring-r{animation:ringR 5s ease-in-out infinite}
+@keyframes ringL{0%,8%{transform:translateX(-46px)}42%,78%{transform:translateX(0)}100%{transform:translateX(-46px)}}
+@keyframes ringR{0%,8%{transform:translateX(46px)}42%,78%{transform:translateX(0)}100%{transform:translateX(46px)}}
+.sparkle{fill:var(--gold2);transform-box:fill-box;transform-origin:center;opacity:0;animation:spark 5s ease-in-out infinite}
+@keyframes spark{0%,40%{opacity:0;transform:scale(0) rotate(0)}52%{opacity:1;transform:scale(1.25) rotate(45deg)}70%{opacity:1;transform:scale(1) rotate(90deg)}85%,100%{opacity:0;transform:scale(0) rotate(135deg)}}
+.rings .h{
+  position:absolute;left:50%;bottom:10px;color:#c4455a;font-size:1.1rem;opacity:0;pointer-events:none;
+  animation:heartUp 4s ease-in infinite;animation-delay:var(--d)
+}
+@keyframes heartUp{
+  0%{opacity:0;transform:translate(0,0) scale(.6)}
+  15%{opacity:.9}
+  100%{opacity:0;transform:translate(var(--x),-130px) scale(1.15)}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .gb-sky{display:none}
+  .gb-board .wall .card{animation:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .ring-l,.ring-r,.sparkle,.rings .h{animation:none}
+  .sparkle{opacity:1}
+  .rings .h{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .cover,.hero-art,.waxseal,.scroll-cue span,.floating-cross,.floating-violin,.reveal,.speech-bubble{animation:none;transition:none}
+  .cover-bg{display:none}
+}
+@media(max-width:390px){
+  section{padding-left:18px;padding-right:18px}
+  .count{gap:6px}
+  .count b{font-size:1.55rem}
+  .count span{font-size:.72rem}
+}
+@media(max-width:430px){html[lang="ta"] .who{font-size:1.2rem}}
+@media(max-width:370px){html[lang="ta"] .who{font-size:1.05rem}}
+</style>
+</head>
+<body class="locked">
+
+<canvas id="roseRain" class="rose-rain" aria-hidden="true"></canvas>
+<canvas id="dateBurst" class="rose-rain burst-layer" aria-hidden="true"></canvas>
+
+<div class="lang" role="group" aria-label="Language">
+  <button type="button" data-lang="en" aria-pressed="true">English</button>
+  <button type="button" data-lang="ta" aria-pressed="false">தமிழ்</button>
+</div>
+
+<button type="button" class="music" id="musicBtn" aria-pressed="false" aria-label="Toggle background music">♪</button>
+<audio id="bgm" loop preload="none"></audio>
+<div class="floating-cross" aria-hidden="true">✝</div>
+<div class="floating-violin" aria-hidden="true">🎻</div>
+
+<div class="cover" id="cover">
+  <!-- Couple with heart balloon video background for the cover -->
+  <video class="cover-bg" id="coverBg" autoplay muted loop playsinline preload="auto"
+         poster="./assets/cover-fly.jpg" aria-hidden="true">
+    <source src="./assets/cover-fly.mp4" type="video/mp4">
+  </video>
+  <div class="seal">
+    <svg class="cross" width="30" height="42" viewBox="0 0 36 48" aria-hidden="true"><path d="M14 0h8v14h14v8H22v26h-8V22H0v-8h14z" fill="currentColor"/></svg>
+    <p data-k="openP"></p>
+    <h1 data-k="cn"></h1>
+    <button type="button" class="waxseal" id="openBtn" aria-label="Open invitation"><span>T&amp;A</span></button>
+    <p data-k="openBtn"></p>
+  </div>
+</div>
+
+<main>
+  <section class="hero reveal">
+    <div class="hero-art-wrap">
+      <img class="hero-art" src="./assets/wedding.png" alt="Illustrated wedding ceremony with bride, groom and priest">
+      <div class="speech-bubble groom-bubble">“Teena, will you marry me?”</div>
+      <div class="speech-bubble bride-bubble">“Yes, Andrew! I’ve been waiting for this moment.”</div>
+    </div>
+    <p class="tag" data-k="tag"></p>
+    <p class="q" data-k="ref"></p>
+    <p class="orn" aria-hidden="true">✦ ✝ ✦</p>
+    <p data-k="intro"></p>
+    <p class="who" data-k="groom"></p>
+    <p class="q" data-k="groomQ"></p>
+    <p class="par" data-k="groomPar"></p>
+    <p class="weds" data-k="weds"></p>
+    <p class="who" data-k="bride"></p>
+    <p class="q" data-k="brideQ"></p>
+    <p class="par" data-k="bridePar"></p>
+    <p data-k="brideEnd"></p>
+    <div class="scroll-cue" data-k="scroll">Scroll to reveal <span>↓</span></div>
+  </section>
+
+  <section class="reveal">
+    <h2 data-k="saveH"></h2>
+    <p class="section-intro" data-k="saveP"></p>
+    <div class="date-wrap" id="dateWrap">
+      <div class="d">13</div>
+      <div class="m" data-k="dMeta"></div>
+      <canvas id="scratch" aria-label="Scratch to reveal the wedding date"></canvas>
+    </div>
+    <div class="count">
+      <div><b id="cd">--</b><span data-k="days"></span></div>
+      <div><b id="ch">--</b><span data-k="hours"></span></div>
+      <div><b id="cm">--</b><span data-k="mins"></span></div>
+      <div><b id="cs">--</b><span data-k="secs"></span></div>
+    </div>
+  </section>
+
+  <section class="reveal" id="storySec">
+    <h2 data-k="storyH"></h2>
+    <p class="section-intro" data-k="storyP"></p>
+    <div class="story-card">
+      <img src="./assets/wedding.png" alt="Wedding illustration">
+      <div class="caption">
+        <strong data-k="storyTitle"></strong>
+        <p data-k="storyText"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sea waves play behind the venue section -->
+  <div class="sea" data-vidwrap>
+    <div class="sea-bg" aria-hidden="true">
+      <video class="bgvid" data-src="./assets/sea-waves.mp4" poster="./assets/sea-waves.jpg" muted loop playsinline preload="none"></video>
+    </div>
+
+    <section class="reveal">
+      <h2 data-k="venueH"></h2>
+      <div class="ev">
+        <div class="cross-divider">✝</div>
+        <h3 data-k="e1t"></h3>
+        <p class="t" data-k="e1time"></p>
+        <p class="v" data-k="e1v"></p>
+        <p class="a" data-k="e1a"></p>
+        <div class="row">
+          <a class="btn" target="_blank" rel="noopener" data-k="map" href="https://www.google.com/maps/search/?api=1&query=Holy+Family+Shrine+Kanakkan+Chathram+Chennai"></a>
+          <a class="btn ghost" id="calBtn" target="_blank" rel="noopener" data-k="cal"></a>
+        </div>
+      </div>
+
+      <div class="ev">
+        <div class="cross-divider">✝</div>
+        <h3 data-k="e2t"></h3>
+        <p class="t" data-k="e2time"></p>
+        <p class="v" data-k="e2v"></p>
+        <p class="a" data-k="e2a"></p>
+        <div class="row">
+          <a class="btn" target="_blank" rel="noopener" data-k="map" href="https://www.google.com/maps/search/Aanur+Grand+MKB+Nagar+Vyasarpadi+Chennai/@13.1192205,80.2592255,850m/data=!3m2!1e3!4b1?entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D"></a>
+        </div>
+      </div>
+
+      <div class="ev">
+        <div class="cross-divider">✝</div>
+        <h3 data-k="e3t"></h3>
+        <p class="t" data-k="e3time"></p>
+        <p class="v" data-k="e3v"></p>
+        <p class="a" data-k="e3a"></p>
+        <div class="row">
+          <a class="btn" target="_blank" rel="noopener" data-k="map" href="https://www.google.com/maps/place/Jeppiar+Remi+Bai+Kalyana+Mandapam,+Muttom,+Church+Rd,+Muttom,+Kadiapattinam,+Tamil+Nadu+629202,+India/@8.1266792,77.3211443,865m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3b04fb2333807893:0xb4836f57c2abffda!8m2!3d8.1267594!4d77.3210453!16s%2Fg%2F11bvtb_j23?hl=en-US&entry=ttu&g_ep=EgoyMDI2MTAyMC4wIKXMDSoASAFQAw%3D%3D"></a>
+          <a class="btn ghost" id="calBtn3" target="_blank" rel="noopener" data-k="cal"></a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Ring-exchange video plays behind "Celebrate with us" -->
+  <div class="joyvid" data-vidwrap>
+  <video class="bgvid" data-src="./assets/rings-bg.mp4" poster="./assets/rings-bg.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+  <section class="reveal joy">
+    <h2 data-k="joinH"></h2>
+    <div class="rings" aria-hidden="true">
+      <svg viewBox="0 0 240 150" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#b8860b"/><stop offset=".45" stop-color="#f0d27a"/><stop offset="1" stop-color="#a9760a"/>
+          </linearGradient>
+        </defs>
+        <g class="ring ring-l"><circle cx="95" cy="82" r="38"/></g>
+        <g class="ring ring-r">
+          <circle cx="145" cy="82" r="38"/>
+          <g class="ring-diamond">
+            <path class="gem" d="M145 31l11 10-11 14-11-14z"/>
+            <path class="facet" d="M134 41h22M145 31l-5 10 5 14 5-14z"/>
+          </g>
+        </g>
+        <path class="sparkle" d="M120 36 L124 49 L137 53 L124 57 L120 70 L116 57 L103 53 L116 49 Z"/>
+      </svg>
+      <span class="h" style="--x:-70px;--d:0s">♥</span>
+      <span class="h" style="--x:-35px;--d:.9s">♥</span>
+      <span class="h" style="--x:10px;--d:1.7s">♥</span>
+      <span class="h" style="--x:45px;--d:.4s">♥</span>
+      <span class="h" style="--x:75px;--d:1.3s">♥</span>
+      <span class="h" style="--x:-10px;--d:2.4s">♥</span>
+    </div>
+    <p class="section-intro" data-k="joinP"></p>
+  </section>
+  </div>
+
+  <section class="reveal">
+    <h2 data-k="gbH"></h2>
+    <p data-k="gbP"></p>
+    <form id="gbForm">
+      <div class="gb-chips" id="gbChips"></div>
+      <label><span data-k="lName"></span>
+        <input type="text" id="gbName" required autocomplete="name" maxlength="40">
+      </label>
+      <label><span data-k="gbWishLabel"></span>
+        <input type="text" id="gbWish" required maxlength="120">
+      </label>
+      <div class="stk-wrap">
+        <p class="stk-title" data-k="stkLabel"></p>
+        <input type="search" id="stkSearch" autocomplete="off" maxlength="30">
+        <div class="stk-grid" id="stkGrid" role="group"></div>
+        <p class="stk-picked" id="stkPicked" aria-live="polite"></p>
+      </div>
+      <div class="gb-colors">
+        <span data-k="gbColor"></span>
+        <label class="dot"><input type="radio" name="gbColor" value="0" checked><span style="background:#fffdf8"></span></label>
+        <label class="dot"><input type="radio" name="gbColor" value="1"><span style="background:#fde8ea"></span></label>
+        <label class="dot"><input type="radio" name="gbColor" value="2"><span style="background:#fff1c9"></span></label>
+        <label class="dot"><input type="radio" name="gbColor" value="3"><span style="background:#e4f1e4"></span></label>
+      </div>
+      <button type="submit" data-k="gbSend" id="gbSubmit"></button>
+    </form>
+    <p class="note" id="gbNote"></p>
+    <div class="gb-board" id="gbBoard">
+      <div class="gb-sky" id="gbSky" aria-hidden="true"></div>
+      <div class="wall" id="gbWall"></div>
+      <p class="gb-empty" id="gbEmpty" data-k="gbEmpty" hidden></p>
+    </div>
+  </section>
+</main>
+
+<!-- Couple walking on the shore plays behind the closing lines -->
+<footer class="finale" data-vidwrap>
+  <video class="bgvid" data-src="./assets/couple-walk.mp4" poster="./assets/couple-walk.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
+  <div class="finale-text">
+    <p data-k="foot0"></p>
+    <p class="sig" data-k="foot1"></p>
+    <p data-k="foot2"></p>
+  </div>
+</footer>
+
+<script>
+const CONFIG = {
+  start: "2026-12-13T16:00:00+05:30",
+  durationHours: 2,
+  whatsapp: "918072185338",
+  whatsappOnWish: false,   // true = also open WhatsApp with each guestbook wish
+  firebase: {
+    apiKey: "AIzaSyByvKwGNQzkGCAHDg5Cd-5ggbMpKJtvFVY",
+    authDomain: "andrew-teena-wedding.firebaseapp.com",
+    projectId: "andrew-teena-wedding",
+    storageBucket: "andrew-teena-wedding.firebasestorage.app",
+    messagingSenderId: "1039460812637",
+    appId: "1:1039460812637:web:e9bcd4b6d4a0da95cf8ab4"
+  },
+  start3: "2026-12-16T15:30:00+05:30",
+  durationHours3: 3,
+  music: "assets/UntilIFoundYou.mp3",
+  musicVolume: 0.6
+};
+
+const T = {
+en:{
+  openP:"You are invited to the wedding of",
+  cn:'<span class="name-initial">A</span>ndrew <span class="amp">&amp;</span> Teena',
+  openBtn:"Tap the seal to open",
+  tag:"Two Become One", ref:"Ephesians 5:31",
+  intro:"With the blessings of the Almighty and our beloved families, we joyfully invite you to grace the wedding of",
+  groom:'M. <span class="name-initial">A</span>ndrew Jackus', groomQ:"B.E (Mech)", groomPar:"S/o Mr. A. Maria Gilbert &amp; Mrs. L. Vinnarasi",
+  weds:"weds",
+  bride:"V. Carmel Teena", brideQ:"M.A. (Eng), B.Ed.", bridePar:"D/o Mr. T. Vigneswaran (a) Viji &amp; Mrs. J. Mary Sheela", brideEnd:"",
+  scroll:"Scroll to reveal",
+  saveH:"Save the date", saveP:"Scratch to reveal the date.", dMeta:"December 2026 · Sunday",
+  days:"Days", hours:"Hours", mins:"Minutes", secs:"Seconds",
+  storyH:"Our Wedding", storyP:"A joyful day of faith, family and a lifelong promise.", storyTitle:"A sacred beginning",
+  storyText:"In the presence of God, surrounded by family and friends, two hearts become one.",
+  venueH:"Venue &amp; timings",
+  e1t:"Wedding ceremony", e1time:"Sunday, 13 December 2026 · 4:00 pm", e1v:"Holy Family Shrine",
+  e1a:"No. 193, V.O.C. Street, Ponniamman Medu, Kanakkan Chathram, Chennai – 110",
+  e2t:"Reception / Dinner", e2time:"Sunday, 13 December 2026 · 7:00 pm", e2v:"Aarur Grand",
+  e2a:"Opposite Dr. Ambedkar College, No. 760/1, M.K.B. Nagar, West Avenue, Vyasarpadi, Chennai – 600039",
+  e3t:"Reception at Muttom · Kanyakumari", e3time:"Wednesday, 16 December 2026 · 4:00 pm", e3v:"Jeppiar Remi Bai kalyana Mandapam",
+  e3a:"Church Road, Muttom, Kadiapattinam, Kanyakumari, Tamil Nadu – 629202",
+  map:"Open map", cal:"Add to calendar",
+  joinH:"Celebrate with us", joinP:"Join us with family and friends to bless the couple and celebrate this joyful day.", lName:"Your name",
+  gbH:"Guestbook wall", gbP:"Leave a little note for Teena & Andrew — everyone who visits will see it on this wall.",
+  gbWishLabel:"Your wish", gbColor:"Note colour",
+  gbChips:[{l:"💡 Advice",p:"My advice for you both: "},{l:"😄 First argument",p:"Your first argument will be about "},{l:"💛 Memory",p:"My favourite memory of you: "}],
+  stkLabel:"Add a sticker (optional)", stkSearch:"Search stickers — cross, dove, rings…", stkNone:"No sticker found",
+  stkPicked:"Selected: ", stkHint:" — tap again to remove",
+  gbEmpty:"Be the first to write a wish ✨", gbErr:"Sorry, your wish could not be added. Please try again.",
+  gbWait:"Please wait a few seconds before adding another wish.", gbOffline:"Showing wishes saved on this device only.", gbSend:"Add to the wall", gbSent:"Thank you! Your wish has been added below.",
+  foot0:"With love and blessings", foot1:'<span class="name-initial">A</span>ndrew <span class="amp">&amp;</span> Teena', foot2:"13 · 12 · 2026",
+  scr:"scratch here"
+},
+ta:{
+  openP:"உங்களை அன்புடன் அழைக்கிறோம்", cn:'ஆன்ட்ரூ <span class="amp">&amp;</span> டீனா', openBtn:"முத்திரையைத் தொடவும்",
+  tag:"அன்பே உங்கள் வாழ்வுக்கு ஆணிவேரும் அடித்தளமுமாய் அமைவதாக", ref:"எபேசியர் 5:31",
+  intro:"கர்த்தராகிய இயேசு கிறிஸ்துவின் பெருங்கிருபையால், தேவனுடைய சித்தத்தின்படி பெரியோர்களால் நிச்சயிக்கப்பட்ட",
+  groom:"திருநிறை செல்வன் M. ஆன்ட்ரூ ஜாக்கூஸ்", groomQ:"B.E (Mech)", groomPar:"திரு. A. மரிய கில்பர்ட் – திருமதி L. வின்னரசி அவர்களின் இளைய குமாரன்",
+  weds:"என்கிற வரனுக்கும்",
+  bride:"திருவளர் செல்வி V. கார்மல் டீனா", brideQ:"M.A. (Eng), B.Ed.", bridePar:"திரு. T. விக்னேஸ்வரன் (எ) விஜி – திருமதி J. மேரி ஷீலா அவர்களின் மூத்த மகள்", brideEnd:"என்கிற கன்னிகைக்கும் திருமணம் நடைபெற உள்ளது.",
+  scroll:"கீழே காண்க",
+  saveH:"நாள் குறித்துக்கொள்ளுங்கள்", saveP:"Scratch to reveal the date.", dMeta:"டிசம்பர் 2026 · ஞாயிற்றுக்கிழமை",
+  days:"நாட்கள்", hours:"மணி", mins:"நிமிடம்", secs:"விநாடி",
+  storyH:"எங்கள் கத்தோலிக்க திருமணம்", storyP:"நம்பிக்கை, குடும்பம் மற்றும் வாழ்நாள் உறுதிமொழியுடன் ஒரு மகிழ்ச்சியான நாள்.", storyTitle:"புனிதமான தொடக்கம்",
+  storyText:"இறைவனின் முன்னிலையில், குடும்பத்தினரும் நண்பர்களும் சூழ, இரண்டு இதயங்கள் ஒன்றாக இணைகின்றன.",
+  venueH:"இடம் &amp; நேரம்",
+  e1t:"திருமண அருட்சாதனம்", e1time:"ஞாயிற்றுக்கிழமை, 13 டிசம்பர் 2026 · மாலை 4:00 மணி", e1v:"திருக்குடும்ப ஆலயம்",
+  e1a:"நெ: 193, வ.உ.சி. தெரு, பொன்னியம்மன் மேடு, கணக்கன் சத்திரம், சென்னை – 110",
+  e2t:"வரவேற்பு / விருந்து", e2time:"ஞாயிற்றுக்கிழமை, 13 டிசம்பர் 2026 · மாலை 7:00 மணி", e2v:"ஆரூர் கிராண்ட்",
+  e2a:"டாக்டர் அம்பேத்கர் கல்லூரி எதிரில், நெ: 760/1, எம்.கே.பி. நகர், மேற்கு அவென்யூ, வியாசர்பாடி, சென்னை – 600039",
+  e3t:"வரவேற்பு விருந்து · முட்டம், கன்னியாகுமரி", e3time:"புதன்கிழமை, 16 டிசம்பர் 2026 · மாலை 3:30 மணி", e3v:"ஜெப்பியார் ரேமி பாய் கல்யாண மண்டபம்",
+  e3a:"முட்டம், சர்ச் சாலை, கடியாப்பட்டினம், கன்னியாகுமரி, தமிழ்நாடு – 629202",
+  map:"வரைபடம்", cal:"நாட்காட்டியில் சேர்",
+  joinH:"எங்களுடன் கொண்டாடுங்கள்", joinP:"சுற்றமும் நட்புடன் சூழ வருகை தந்து மணமக்களை ஆசீர்வதிக்கும்படி அன்புடன் அழைக்கின்றோம்.",
+  lName:"உங்கள் பெயர்",
+  gbH:"வாழ்த்து சுவர்", gbP:"டீனா & ஆன்ட்ரூவுக்கு ஒரு சிறிய வாழ்த்து பகிரவும் — அது இந்த சுவரில் அனைவருக்கும் தெரியும்.",
+  gbWishLabel:"உங்கள் வாழ்த்து", gbColor:"குறிப்பின் நிறம்",
+  gbChips:[{l:"💡 அறிவுரை",p:"உங்களுக்கான என் அறிவுரை: "},{l:"😄 முதல் சண்டை",p:"உங்கள் முதல் சண்டை இதைப் பற்றி இருக்கும்: "},{l:"💛 நினைவு",p:"என் இனிய நினைவு: "}],
+  stkLabel:"ஒரு ஸ்டிக்கர் சேர்க்கவும் (விருப்பம்)", stkSearch:"ஸ்டிக்கர் தேடுக — சிலுவை, புறா, மோதிரம்…", stkNone:"ஸ்டிக்கர் கிடைக்கவில்லை",
+  stkPicked:"தேர்ந்தெடுத்தது: ", stkHint:" — நீக்க மீண்டும் தொடவும்",
+  gbEmpty:"முதல் வாழ்த்தை நீங்களே எழுதுங்கள் ✨", gbErr:"மன்னிக்கவும், வாழ்த்தைச் சேர்க்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்.",
+  gbWait:"சில விநாடிகள் கழித்து மீண்டும் முயற்சிக்கவும்.", gbOffline:"இந்த சாதனத்தில் சேமித்த வாழ்த்துகள் மட்டும் காட்டப்படுகின்றன.", gbSend:"சுவரில் சேர்க்கவும்", gbSent:"நன்றி! உங்கள் வாழ்த்து கீழே சேர்க்கப்பட்டது.",  foot0:"அன்புடனும் ஆசீர்வாதங்களுடனும்", foot1:'ஆன்ட்ரூ <span class="amp">&amp;</span> டீனா', foot2:"13 · 12 · 2026"
+}
+};
+
+/* ---- TEENA'S VERSION: bride's side listed first; wishes go to the "teena-wishes" collection ---- */
+const SIDE="teena";
+for(const l of ["en","ta"]){
+  const t=T[l];
+  [t.groom,t.bride]=[t.bride,t.groom];
+  [t.groomQ,t.brideQ]=[t.brideQ,t.groomQ];
+  [t.groomPar,t.bridePar]=[t.bridePar,t.groomPar];
+}
+T.en.cn='<span class="name-initial">T</span>eena <span class="amp">&amp;</span> Andrew';
+T.en.foot1=T.en.cn;
+T.ta.cn='டீனா <span class="amp">&amp;</span> ஆன்ட்ரூ';
+T.ta.foot1=T.ta.cn;
+T.ta.weds="என்கிற கன்னிகைக்கும்";
+T.ta.brideEnd="என்கிற வரனுக்கும் திருமணம் நடைபெற உள்ளது.";
+
+/* ---- Sticker set: guests pick one by name; only the id is stored with their wish ---- */
+const SVG=inner=>'<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'+inner+'</svg>';
+const STICKERS=[
+  {
+  id: "holy-family",
+  en: "Holy Family",
+  ta: "திருக்குடும்பம்",
+  tags: "jesus mary joseph family blessing",
+  img: "./assets/holy-family.jpg"
+},
+  {id:"his-love", en:"His love", ta:"அவர் அன்பு", tags:"jesus christ crown thorns love blessing god forever", img:"./assets/qatar-family.jpg"},
+  {id:"cross", en:"Cross", ta:"சிலுவை", tags:"jesus christ faith church holy", svg:SVG(
+    '<path d="M27 5h10v19h19v10H37v25H27V34H8V24h19z" fill="#b8860b"/><path d="M30 9h4v19h19v2H34v25h-4V30H11v-2h19z" fill="#f0d27a"/>')},
+  {id:"dove", en:"Dove", ta:"புறா", tags:"peace spirit holy bird white", svg:SVG(
+    '<g stroke="#5f7388" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">'+
+    '<path d="M7 47C15 45 22 43 28 39c6-4 8-9 12-12 4-3 9-2 10 2 1 3-1 6-4 9-5 6-13 13-24 14-6 1-11 0-15-5z" fill="#ffffff"/>'+
+    '<path d="M7 47l-5 9 13-5zM11 49l-2 9 11-6z" fill="#e8eef6"/>'+
+    '<path d="M25 40C19 29 21 15 34 5c1 11 4 22 9 30-6 3-12 5-18 5z" fill="#f3f7fb"/></g>'+
+    '<path d="M30 35c-2-8-1-15 3-22M36 36c-1-8 0-15 3-21" fill="none" stroke="#9fb0c3" stroke-width="1.6" stroke-linecap="round"/>'+
+    '<path d="M50 26l8 3-8 3z" fill="#e08a2b" stroke="#b76a14" stroke-width="1.2" stroke-linejoin="round"/>'+
+    '<circle cx="46" cy="27" r="1.8" fill="#2f2a2a"/>'+
+    '<path d="M57 31c3 5 1 12-6 15" fill="none" stroke="#4f7d34" stroke-width="2" stroke-linecap="round"/>'+
+    '<ellipse cx="58.5" cy="37" rx="3.4" ry="1.8" fill="#6aa04a" transform="rotate(60 58.5 37)"/><ellipse cx="55" cy="43" rx="3.4" ry="1.8" fill="#6aa04a" transform="rotate(35 55 43)"/><ellipse cx="51" cy="46.5" rx="3.2" ry="1.7" fill="#6aa04a" transform="rotate(15 51 46.5)"/>')},
+  {id:"rings", en:"Rings", ta:"மோதிரங்கள்", tags:"wedding marriage ring diamond", svg:SVG(
+    '<circle cx="24" cy="40" r="15" fill="none" stroke="#b8860b" stroke-width="6"/><circle cx="40" cy="40" r="15" fill="none" stroke="#e0b84f" stroke-width="6"/>'+
+    '<path d="M24 25a15 15 0 0 1 16 0" fill="none" stroke="#b8860b" stroke-width="6"/>'+
+    '<path d="M32 6l7 8-7 9-7-9z" fill="#9fd8f5" stroke="#5aa6cf" stroke-width="1.5" stroke-linejoin="round"/><path d="M25 14h14" stroke="#5aa6cf" stroke-width="1.2"/>')},
+  {id:"heart", en:"Heart", ta:"இதயம்", tags:"love care", svg:SVG(
+    '<path d="M32 57C9 41 5 27 5 19a14 14 0 0 1 27-3 14 14 0 0 1 27 3c0 8-4 22-27 38z" fill="#c4455a"/><ellipse cx="19" cy="20" rx="5" ry="3" fill="#fff" opacity=".4" transform="rotate(-35 19 20)"/>')},
+  {id:"rose", en:"Rose", ta:"ரோஜா", tags:"flower love red petal", svg:SVG(
+    '<path d="M32 40v20" stroke="#4f7d34" stroke-width="3" stroke-linecap="round"/><path d="M32 52c-8-2-12-6-12-12 7 0 12 4 12 12z" fill="#6aa04a"/><path d="M32 48c7-1 11-5 11-10-6 0-11 4-11 10z" fill="#5b8a3a"/>'+
+    '<circle cx="32" cy="24" r="18" fill="#d9566b"/><path d="M32 24c-5-5-12 0-8 6s14 4 16-3-1-14-9-15-16 5-15 14" fill="none" stroke="#8f2a3b" stroke-width="2.6" stroke-linecap="round"/>')},
+  {id:"church", en:"Church", ta:"ஆலயம்", tags:"chapel shrine wedding building", svg:SVG(
+    '<path d="M32 3v8M28 7h8" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/><path d="M24 22l8-11 8 11z" fill="#7a1f2b"/><rect x="24" y="22" width="16" height="14" fill="#fff4e4" stroke="#8a6408" stroke-width="1.5"/>'+
+    '<path d="M6 36l18-6v26H6z" fill="#fff4e4" stroke="#8a6408" stroke-width="1.5" stroke-linejoin="round"/><path d="M58 36l-18-6v26h18z" fill="#fff4e4" stroke="#8a6408" stroke-width="1.5" stroke-linejoin="round"/>'+
+    '<rect x="24" y="36" width="16" height="22" fill="#fff4e4" stroke="#8a6408" stroke-width="1.5"/><path d="M28 58V47a4 4 0 0 1 8 0v11z" fill="#7a1f2b"/>'+
+    '<circle cx="32" cy="28" r="2.6" fill="#e0b84f"/><rect x="11" y="41" width="5" height="8" rx="2.5" fill="#e0b84f"/><rect x="48" y="41" width="5" height="8" rx="2.5" fill="#e0b84f"/>')},
+  {id:"bells", en:"Bells", ta:"மணிகள்", tags:"wedding church ring ding", svg:SVG(
+    '<g fill="#e0b84f" stroke="#8a6408" stroke-width="2.2" stroke-linejoin="round">'+
+    '<g transform="translate(20 15) rotate(-14) scale(.8)"><circle cx="0" cy="3" r="3.5"/><path d="M-4 6C-14 10-14 22-17 32l-4 5H21l-4-5C14 22 14 10 4 6z"/><circle cx="0" cy="41" r="3.6" fill="#8a6408"/></g>'+
+    '<g transform="translate(44 15) rotate(14) scale(.8)"><circle cx="0" cy="3" r="3.5"/><path d="M-4 6C-14 10-14 22-17 32l-4 5H21l-4-5C14 22 14 10 4 6z"/><circle cx="0" cy="41" r="3.6" fill="#8a6408"/></g></g>'+
+    '<path d="M32 9c-5-6-12-4-10 1s8 3 10-1zM32 9c5-6 12-4 10 1s-8 3-10-1z" fill="#c4455a" stroke="#8f2a3b" stroke-width="1.4" stroke-linejoin="round"/><circle cx="32" cy="9" r="2.4" fill="#8f2a3b"/>')},
+  {id:"candle", en:"Candle", ta:"மெழுகுவர்த்தி", tags:"light prayer faith flame hope", svg:SVG(
+    '<path d="M32 6c6 8 8 12 3 17-3 3-7 3-9-1-2-5 2-8 6-16z" fill="#f4a21e"/><path d="M32 14c3 4 3 6 1 8-2 1-4 0-4-3 0-2 1-3 3-5z" fill="#ffe27a"/>'+
+    '<rect x="25" y="26" width="14" height="28" rx="2" fill="#fff4e4" stroke="#8a6408" stroke-width="1.5"/><path d="M25 34c4 3 10 3 14 0" stroke="#e8d2a0" stroke-width="3" fill="none"/>'+
+    '<path d="M16 56h32l-4-6H20z" fill="#b8860b"/>')},
+  {id:"star", en:"Star", ta:"நட்சத்திரம்", tags:"sparkle bright shine light", svg:SVG(
+    '<path d="M32 4l8 18 20 2-15 13 5 20-18-10-18 10 5-20L4 24l20-2z" fill="#e0b84f" stroke="#b8860b" stroke-width="2" stroke-linejoin="round"/><path d="M32 14l4 10 10 1-8 7 2 10-8-5-8 5 2-10-8-7 10-1z" fill="#f7e19b"/>')},
+  {id:"cake", en:"Cake", ta:"கேக்", tags:"celebrate party sweet dessert wedding", svg:SVG(
+    '<path d="M32 18c-6-3-9-7-7-10a4 4 0 0 1 7 1 4 4 0 0 1 7-1c2 3-1 7-7 10z" fill="#c4455a"/>'+
+    '<rect x="22" y="20" width="20" height="12" rx="3" fill="#fde8ea" stroke="#d9a0a8" stroke-width="1.5"/><rect x="14" y="32" width="36" height="12" rx="3" fill="#fff4e4" stroke="#d9a0a8" stroke-width="1.5"/>'+
+    '<rect x="8" y="44" width="48" height="14" rx="3" fill="#fde8ea" stroke="#d9a0a8" stroke-width="1.5"/>'+
+    '<path d="M8 49c6 4 8-3 12 1s8-3 12 1 8-3 12 1 8-3 12 1" fill="none" stroke="#fff" stroke-width="3"/><circle cx="20" cy="38" r="2" fill="#c4455a"/><circle cx="32" cy="38" r="2" fill="#e0b84f"/><circle cx="44" cy="38" r="2" fill="#c4455a"/>')}
+];
+const STK_MAP=Object.create(null); STICKERS.forEach(x=>STK_MAP[x.id]=x);
+const stk={sel:"",q:""};   // current picker state
+
+(function(){
+  let lang = "en";
+  const $ = id => document.getElementById(id);
+  const when = new Date(CONFIG.start);
+  const end = new Date(when.getTime() + CONFIG.durationHours*3600000);
+
+  function apply(l){
+    lang = l;
+    document.documentElement.lang = l;
+    document.querySelectorAll("[data-k]").forEach(el=>{
+      const v = T[l][el.getAttribute("data-k")];
+      el.innerHTML = v || "";
+      el.style.display = v ? "" : "none";
+    });
+    $("openBtn").setAttribute("aria-label", T[l].openBtn);
+    gbRenderChips();
+    renderStickers();
+    const ss=$("stkSearch"); if(ss){ ss.placeholder=T[l].stkSearch; ss.setAttribute("aria-label",T[l].stkLabel); }
+    document.querySelectorAll(".lang button").forEach(b=>{
+      b.setAttribute("aria-pressed", b.dataset.lang === l);
+    });
+    document.title = l === "ta" ? "டீனா & ஆன்ட்ரூ — கத்தோலிக்க திருமண அழைப்பிதழ்" : "Teena & Andrew — Wedding Invitation";
+  }
+  document.querySelectorAll(".lang button").forEach(b=>b.onclick=()=>apply(b.dataset.lang));
+  apply("en");
+
+  // Google Calendar links
+  const g = d => d.toISOString().replace(/[-:]|\.\d{3}/g,"");
+  $("calBtn").href =
+    "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Teena & Andrew Wedding")+
+    "&dates="+g(when)+"/"+g(end)+
+    "&location="+encodeURIComponent("Holy Family Shrine, V.O.C. Street, Ponniamman Medu, Kanakkan Chathram, Chennai 600110");
+
+  const w3 = new Date(CONFIG.start3), e3 = new Date(w3.getTime()+CONFIG.durationHours3*3600000);
+  $("calBtn3").href =
+    "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent("Teena & Andrew Wedding Reception")+
+    "&dates="+g(w3)+"/"+g(e3)+
+    "&location="+encodeURIComponent("Jeppiar Remi Bai Kalyana Mandapam,Church Rd, Muttom, Tamil Nadu");
+
+  // Opening cover
+  $("openBtn").onclick=()=>{
+    const cv=$("cover");
+    cv.classList.add("open");
+    document.body.classList.remove("locked");
+    setTimeout(()=>{
+      cv.classList.add("gone");
+      // stop the cover video once it is hidden (saves battery and data)
+      const cvVid=$("coverBg"); if(cvVid){cvVid.pause();cvVid.remove();}
+    },1300);
+    if(CONFIG.music) setMusic(true);
+  };
+
+  // Countdown
+  function tick(){
+    const s=Math.max(0,Math.floor((when-new Date())/1000));
+    $("cd").textContent=Math.floor(s/86400);
+    $("ch").textContent=Math.floor(s%86400/3600);
+    $("cm").textContent=Math.floor(s%3600/60);
+    $("cs").textContent=s%60;
+  }
+  tick(); setInterval(tick,1000);
+
+  // Scratch reveal (heart-shaped): reveals after 3 swipes OR once most of the heart is scratched away
+  const cv=$("scratch"), ctx=cv.getContext("2d");
+  let drawing=false, done=false, swipeCount=0, swipeDistance=0, lastPoint=null, paintedW=0, totalOpaque=1;
+  function heartPath(w,h){
+    const cx=w/2, top=h*.08, bottom=h*.94, half=Math.min(w*.42,h*.68);
+    ctx.beginPath();
+    ctx.moveTo(cx,bottom);
+    ctx.bezierCurveTo(cx-half*1.45,h*.62,cx-half*1.2,top,cx-half*.48,top);
+    ctx.bezierCurveTo(cx-half*.12,top,cx,top+h*.16,cx,top+h*.25);
+    ctx.bezierCurveTo(cx,top+h*.16,cx+half*.12,top,cx+half*.48,top);
+    ctx.bezierCurveTo(cx+half*1.2,top,cx+half*1.45,h*.62,cx,bottom);
+    ctx.closePath();
+  }
+  function opaqueCount(){
+    const d=ctx.getImageData(0,0,cv.width,cv.height).data;
+    let n=0; for(let i=3;i<d.length;i+=32) if(d[i]>128) n++;
+    return n;
+  }
+  function paint(){
+    const w=cv.clientWidth,h=cv.clientHeight,r=window.devicePixelRatio||1;
+    if(!w||!h) return;
+    paintedW=w; swipeCount=0;
+    cv.width=w*r;cv.height=h*r;ctx.setTransform(r,0,0,r,0,0); // resizing a canvas also resets its drawing mode
+    const gr=ctx.createLinearGradient(0,0,w,h);
+    gr.addColorStop(0,"#b8860b");gr.addColorStop(.35,"#f0d27a");gr.addColorStop(.6,"#d9a82a");gr.addColorStop(1,"#a9760a");
+    heartPath(w,h);ctx.fillStyle=gr;ctx.fill();
+    ctx.fillStyle="rgba(60,36,0,.75)";
+    ctx.font="600 16px Jost, sans-serif";ctx.textAlign="center";
+    ctx.fillText(T.en.scr,w/2,h/2+6);
+    totalOpaque=Math.max(1,opaqueCount());
+    ctx.globalCompositeOperation="destination-out";
+  }
+  paint();
+  // Only repaint when the WIDTH changes (phones fire resize when the address bar hides while scrolling,
+  // which used to wipe the scratch progress)
+  window.addEventListener("resize",()=>{ if(!done && !drawing && cv.clientWidth!==paintedW) paint(); });
+  function scratch(e){
+    if(!drawing||done)return;
+    const b=cv.getBoundingClientRect();
+    const point={x:e.clientX-b.left,y:e.clientY-b.top};
+    if(lastPoint){
+      swipeDistance+=Math.hypot(point.x-lastPoint.x,point.y-lastPoint.y);
+      ctx.beginPath();ctx.moveTo(lastPoint.x,lastPoint.y);ctx.lineTo(point.x,point.y);
+      ctx.lineWidth=52;ctx.lineCap="round";ctx.lineJoin="round";ctx.stroke();
+    }else{
+      ctx.beginPath();ctx.arc(point.x,point.y,26,0,Math.PI*2);ctx.fill();
+    }
+    lastPoint=point;
+  }
+  function finishSwipe(){
+    if(!drawing)return;
+    drawing=false;
+    if(swipeDistance>=20)swipeCount++;
+    swipeDistance=0;lastPoint=null;
+    // reveal after 3 swipes, or as soon as ~65% of the heart is scratched off
+    if(swipeCount>=3 || opaqueCount()/totalOpaque<.35) revealDate();
+  }
+  function revealDate(){
+    if(done)return;
+    done=true;
+    $("dateWrap").classList.add("revealed");   // date text fades in (language text already set by apply())
+    cv.classList.add("done");                  // remaining gold fades away
+    burstFlowers(cv);                          // flower burst
+  }
+
+  // Flower/confetti burst fired once the date card is fully scratched
+  const rand2=(min,max)=>Math.random()*(max-min)+min;
+  const burstCanvas=$("dateBurst"), burstCtx=burstCanvas&&burstCanvas.getContext("2d");
+  let burstParticles=[], burstAnimId=0;
+  function resizeBurst(){
+    if(!burstCtx)return;
+    const r=Math.min(2,window.devicePixelRatio||1);
+    burstCanvas.width=Math.floor(window.innerWidth*r);
+    burstCanvas.height=Math.floor(window.innerHeight*r);
+    burstCtx.setTransform(r,0,0,r,0,0);
+  }
+  resizeBurst();
+  window.addEventListener("resize",resizeBurst,{passive:true});
+  function burstFlowers(originEl){
+    if(!burstCtx)return;
+    const rect=originEl.getBoundingClientRect();
+    const cx=rect.left+rect.width/2, cy=rect.top+rect.height/2;
+    const palette=[[343,70,58],[48,78,62],[355,82,66],[38,62,72]];
+    burstParticles=[];
+    const count=52;
+    for(let i=0;i<count;i++){
+      const ang=rand2(0,Math.PI*2), speed=rand2(3.5,9.5), c=palette[Math.floor(rand2(0,palette.length))];
+      burstParticles.push({
+        x:cx,y:cy,
+        vx:Math.cos(ang)*speed,
+        vy:Math.sin(ang)*speed-rand2(1,4.5),
+        size:rand2(5,11),
+        angle:rand2(0,Math.PI*2),
+        rot:rand2(-0.25,0.25),
+        hue:c[0]+rand2(-6,6),sat:c[1],light:c[2],
+        life:1,decay:rand2(0.008,0.018)
+      });
+    }
+    if(!burstAnimId)burstAnimId=requestAnimationFrame(stepBurst);
+  }
+  function stepBurst(){
+    burstCtx.clearRect(0,0,window.innerWidth,window.innerHeight);
+    let alive=false;
+    for(const p of burstParticles){
+      if(p.life<=0)continue;
+      p.vy+=0.16;p.x+=p.vx;p.y+=p.vy;p.vx*=0.985;p.angle+=p.rot;p.life-=p.decay;
+      if(p.life>0){
+        alive=true;
+        burstCtx.save();
+        burstCtx.globalAlpha=Math.max(0,p.life);
+        burstCtx.translate(p.x,p.y);
+        burstCtx.rotate(p.angle);
+        burstCtx.fillStyle="hsl("+p.hue+","+p.sat+"%,"+p.light+"%)";
+        burstCtx.beginPath();
+        burstCtx.moveTo(0,-p.size);
+        burstCtx.bezierCurveTo(p.size*0.9,-p.size*0.2,p.size*0.7,p.size,0,p.size*0.85);
+        burstCtx.bezierCurveTo(-p.size*0.7,p.size,-p.size*0.9,-p.size*0.2,0,-p.size);
+        burstCtx.fill();
+        burstCtx.restore();
+      }
+    }
+    if(alive)burstAnimId=requestAnimationFrame(stepBurst);
+    else{burstAnimId=0;burstCtx.clearRect(0,0,window.innerWidth,window.innerHeight)}
+  }
+  cv.addEventListener("pointerdown",e=>{drawing=true;swipeDistance=0;lastPoint=null;cv.setPointerCapture(e.pointerId);scratch(e)});
+  cv.addEventListener("pointermove",scratch);
+  cv.addEventListener("pointerup",finishSwipe);
+  cv.addEventListener("pointercancel",finishSwipe);
+
+  // Guestbook: one shared floating wishes board for ALL guests, stored in Firebase Firestore.
+  // If Firebase cannot be reached, it falls back to wishes saved on this device only.
+  const GB_KEY="gbWishes-teena", GB_MAX=40, GB_COOLDOWN=20000, GB_FB="https://www.gstatic.com/firebasejs/10.12.2/";
+  let gbRemote=null, gbStarted=false, gbLoaded=false;
+  function gbLoad(){ try{ return JSON.parse(localStorage.getItem(GB_KEY)) || []; }catch(e){ return []; } }
+  function gbSave(list){ try{ localStorage.setItem(GB_KEY, JSON.stringify(list.slice(-200))); }catch(e){} }
+  function gbSyncEmpty(){ const em=$("gbEmpty"); if(em) em.hidden = !gbLoaded || $("gbWall").children.length>0; }
+  function gbRenderChips(){
+    const box=$("gbChips"); if(!box) return;
+    box.innerHTML="";
+    (T[lang].gbChips||[]).forEach(ch=>{
+      const b=document.createElement("button");
+      b.type="button"; b.className="chip"; b.textContent=ch.l;
+      b.onclick=()=>{ const i=$("gbWish"); i.value=ch.p; i.focus(); };
+      box.appendChild(b);
+    });
+  }
+  // Starter notes that always stay at the end of the wall (live guest notes appear above them)
+  const gbSeed=[
+    {name:"Qatar Family", msg:"Be blessed and be united with Christ.", img:"./assets/qatar-family.jpg", alt:"His love endures forever — a blessing from the Qatar family", c:2},
+    {name:"Alston & Nimisha", msg:"Wishing you both a lifetime of love and laughter! ✝️", c:0},
+    {name:"Family", msg:"So happy for you two — see you on the big day!", c:1}
+  ];
+  function gbRenderSeeds(){ gbSeed.forEach(en=>gbAdd(Object.assign({seed:true},en),null,9999,false)); }
+  function renderStickers(){
+    const grid=$("stkGrid"); if(!grid) return;
+    const q=(stk.q||"").trim().toLowerCase();
+    grid.innerHTML="";
+    grid.setAttribute("aria-label",T[lang].stkLabel);
+    const list=STICKERS.filter(x=>!q||(x.en+" "+x.ta+" "+x.tags).toLowerCase().includes(q));
+    if(!list.length){ const n=document.createElement("p"); n.className="stk-none"; n.textContent=T[lang].stkNone; grid.appendChild(n); }
+    list.forEach(x=>{
+      const b=document.createElement("button");
+      b.type="button"; b.className="stk-tile"; b.dataset.id=x.id;
+      b.setAttribute("aria-pressed", String(stk.sel===x.id));
+      b.insertAdjacentHTML("beforeend", x.img ? '<img src="'+x.img+'" alt="" loading="lazy">' : x.svg);
+      const sp=document.createElement("span"); sp.textContent=x[lang]||x.en; b.appendChild(sp);
+      b.onclick=()=>{
+        stk.sel = stk.sel===x.id ? "" : x.id;
+        renderStickers();
+        const again=grid.querySelector('[data-id="'+x.id+'"]'); if(again) again.focus();
+      };
+      grid.appendChild(b);
+    });
+    const cur=STK_MAP[stk.sel];
+    const pk=$("stkPicked"); if(pk) pk.textContent = cur ? T[lang].stkPicked+(cur[lang]||cur.en)+T[lang].stkHint : "";
+  }
+  function gbAdd(entry, id, index, animate){
+    const wall=$("gbWall");
+    const card=document.createElement("div");
+    card.className="card c"+((entry.c|0)%4)+(entry.img?" has-img":"")+(entry.seed?" seed":"");
+    if(id) card.dataset.id=id;
+    card.style.setProperty("--r",(Math.random()*6-3).toFixed(2)+"deg");
+    card.style.setProperty("--bd",(4+Math.random()*3).toFixed(1)+"s");
+    card.style.setProperty("--bdelay",(-Math.random()*5).toFixed(1)+"s");
+    const p=document.createElement("p"); p.textContent="“"+entry.msg+"”";
+    const b=document.createElement("b"); b.textContent="— "+entry.name;
+    if(entry.img){
+      const im=document.createElement("img");
+      im.src=entry.img; im.alt=entry.alt||""; im.loading="lazy"; im.decoding="async";
+      card.append(im);
+    }
+    const st=STK_MAP[entry.s];   // only known sticker ids are drawn; anything else is ignored
+    if(st){
+      if(st.img){
+        const si=document.createElement("img"); si.className="stk-photo"; si.src=st.img; si.alt=st.en; si.loading="lazy"; si.decoding="async";
+        card.append(si);
+      }else{
+        const sd=document.createElement("div"); sd.className="stk"; sd.setAttribute("role","img"); sd.setAttribute("aria-label",st.en); sd.innerHTML=st.svg;
+        card.append(sd);
+      }
+    }
+    card.append(p,b);
+    if(!animate) card.style.animation="noteBob var(--bd) ease-in-out var(--bdelay) infinite alternate";
+    const ref=wall.children[index];
+    if(ref) wall.insertBefore(card,ref); else wall.appendChild(card);
+    const live=[...wall.querySelectorAll(".card:not(.seed)")];   // only live guest notes are capped; starter notes stay
+    while(live.length>GB_MAX) live.pop().remove();
+    gbSyncEmpty();
+  }
+  function gbFallback(){
+    gbRemote=null; gbLoaded=true;
+    const wall=$("gbWall"); wall.innerHTML="";
+    gbLoad().slice().reverse().forEach((en,i)=>gbAdd(en,null,i,false));
+    gbRenderSeeds();
+    $("gbNote").textContent=T[lang].gbOffline;
+    gbSyncEmpty();
+  }
+  async function gbStart(){
+    if(gbStarted) return;
+    gbStarted=true;
+    try{
+      const [appMod,fs]=await Promise.all([import(GB_FB+"firebase-app.js"),import(GB_FB+"firebase-firestore.js")]);
+      const db=fs.getFirestore(appMod.initializeApp(CONFIG.firebase));
+      const col=fs.collection(db,"teena-wishes");   // Teena's own wall (Andrew's page uses "wishes")
+      gbRemote={fs,col};
+      let first=true;
+      fs.onSnapshot(fs.query(col,fs.orderBy("t","desc"),fs.limit(GB_MAX)),snap=>{
+        snap.docChanges().forEach(ch=>{
+          const wall=$("gbWall");
+          if(ch.type==="added"){
+            const d=ch.doc.data();
+            if(wall.querySelector('[data-id="'+ch.doc.id+'"]')) return;
+            gbAdd({name:d.name,msg:d.msg,c:d.c,s:d.s},ch.doc.id,ch.newIndex,!first);
+          }else if(ch.type==="removed"){
+            const el=wall.querySelector('[data-id="'+ch.doc.id+'"]'); if(el) el.remove();
+          }
+        });
+        first=false; gbLoaded=true; gbSyncEmpty();
+      },err=>{ console.error("Firestore read failed:",err&&err.code,err&&err.message); gbFallback(); });
+    }catch(e){ console.error("Firebase failed to load:",e); gbFallback(); }
+  }
+  (function initGuestbook(){
+    const board=$("gbBoard"); if(!board) return;
+    gbRenderSeeds();
+    $("stkSearch").addEventListener("input",e=>{ stk.q=e.target.value; renderStickers(); });
+    // load the shared wall only when the guestbook is about to be seen (saves data and Firebase reads)
+    if("IntersectionObserver" in window){
+      new IntersectionObserver((es,o)=>{ if(es.some(x=>x.isIntersecting)){ o.disconnect(); gbStart(); } },{rootMargin:"500px 0px"}).observe(board);
+    }else gbStart();
+    $("gbForm").onsubmit=async e=>{
+      e.preventDefault();
+      const name=$("gbName").value.trim(), msg=$("gbWish").value.trim();
+      const chosen=document.querySelector("input[name=gbColor]:checked");
+      const c=chosen?+chosen.value:0;
+      if(!name||!msg) return;
+      let last=0; try{ last=+localStorage.getItem("gbLast")||0; }catch(err){}
+      if(Date.now()-last<GB_COOLDOWN){ $("gbNote").textContent=T[lang].gbWait; return; }
+      $("gbSubmit").disabled=true;
+      await gbStart();
+      if(gbStarted && !gbLoaded){ await new Promise(r=>{ const t=setInterval(()=>{ if(gbLoaded){clearInterval(t);r();} },100); setTimeout(()=>{clearInterval(t);r();},4000); }); }
+      try{
+        if(gbRemote){
+          const {fs,col}=gbRemote;
+          // not awaited: the new note appears instantly; an error message shows only if the server rejects it
+          const wish={name,msg,c,t:fs.serverTimestamp()}; if(stk.sel) wish.s=stk.sel;
+          fs.addDoc(col,wish).catch(err=>{
+            console.error("Firestore write failed:",err.code,err.message);
+            $("gbNote").textContent=T[lang].gbErr;
+          });
+        }else{
+          const s=stk.sel, list=gbLoad(); list.push(s?{name,msg,c,s}:{name,msg,c}); gbSave(list);
+          gbAdd({name,msg,c,s},null,0,true);
+        }
+        try{ localStorage.setItem("gbLast",String(Date.now())); }catch(err){}
+        $("gbForm").reset();
+        stk.sel=""; stk.q=""; renderStickers();
+        $("gbWall").scrollTop=0;
+        $("gbNote").textContent=T[lang].gbSent;
+        if(CONFIG.whatsappOnWish) window.open("https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent("Guestbook wish from "+name+": "+msg),"_blank");
+      }catch(err){ $("gbNote").textContent=T[lang].gbErr; }
+      $("gbSubmit").disabled=false;
+    };
+  })();
+
+  // Floating hearts / sparkles drifting up behind the notes
+  (function initGuestbookSky(){
+    const sky=$("gbSky"); if(!sky) return;
+    const glyphs=["♥","✦","❀","♥","✿"], cols=["#c4455a","#e0b84f","#b8860b","#d97b8a"];
+    for(let i=0;i<18;i++){
+      const s=document.createElement("span");
+      s.textContent=glyphs[i%glyphs.length];
+      s.style.setProperty("--l",(Math.random()*94).toFixed(1)+"%");
+      s.style.setProperty("--s",(10+Math.random()*16).toFixed(0)+"px");
+      s.style.setProperty("--t",(9+Math.random()*9).toFixed(1)+"s");
+      s.style.setProperty("--dl",(-Math.random()*14).toFixed(1)+"s");
+      s.style.setProperty("--c",cols[i%cols.length]);
+      s.style.setProperty("--sw",(Math.random()*50-25).toFixed(0)+"px");
+      sky.appendChild(s);
+    }
+  })();
+
+  // Music
+  const bgm=$("bgm"), mbtn=$("musicBtn");
+  let wantMusic=false;
+  if(CONFIG.music){
+    bgm.src=CONFIG.music;bgm.volume=CONFIG.musicVolume;
+  }else{
+    mbtn.hidden=true;
+  }
+  function syncMusic(){mbtn.setAttribute("aria-pressed",wantMusic)}
+  function setMusic(on){
+    wantMusic=on;syncMusic();
+    if(on){const p=bgm.play();if(p&&p.catch)p.catch(()=>{wantMusic=false;syncMusic()})}
+    else bgm.pause();
+  }
+  mbtn.onclick=()=>setMusic(!wantMusic);
+
+  // Scroll reveal
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add("visible")});
+  },{threshold:.12});
+  document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+
+  // Background videos (sea waves + couple): load late, play only while on screen
+  (function initBgVideos(){
+    const saveData = navigator.connection && navigator.connection.saveData;
+    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches || saveData || !("IntersectionObserver" in window)) return;
+    document.querySelectorAll(".bgvid").forEach(v=>{
+      v.addEventListener("error",()=>v.remove());
+      const wrap = v.closest("[data-vidwrap]") || v;
+      new IntersectionObserver(entries=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            if(!v.getAttribute("src")) v.src = v.dataset.src;
+            const p = v.play(); if(p && p.catch) p.catch(()=>{});
+          }else v.pause();
+        });
+      },{rootMargin:"200px 0px"}).observe(wrap);
+    });
+  })();
+
+  // Rose petal rain (fades out before "Our Wedding", returns if you scroll back up)
+  (function initRoseRain(){
+    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const canvas = $("roseRain");
+    const ctx2 = canvas.getContext("2d");
+    if(!ctx2) return;
+
+    const petals = [];
+    const isMobile = window.innerWidth < 600;
+    const maxPetals = isMobile
+      ? Math.min(22, Math.max(12, Math.floor(window.innerWidth / 38)))
+      : Math.min(56, Math.max(26, Math.floor(window.innerWidth / 24)));
+    let w = 0, h = 0, dpr = 1;
+    let animId = 0;
+    let allowed = true, offTimer = 0;
+
+    function rand(min, max){ return Math.random() * (max - min) + min; }
+
+    function makePetal(resetToTop){
+      return {
+        x: rand(0, w),
+        y: resetToTop ? rand(-h, 0) : rand(0, h),
+        size: rand(7, 15),
+        speedY: rand(0.6, 1.8),
+        sway: rand(0.4, 1.8),
+        angle: rand(0, Math.PI * 2),
+        rot: rand(-0.02, 0.02),
+        drift: rand(-0.35, 0.35),
+        hue: rand(343, 356),
+        sat: rand(62, 78),
+        light: rand(45, 62),
+        alpha: rand(0.45, 0.85)
+      };
+    }
+
+    function resize(){
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      ctx2.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function drawPetal(p){
+      ctx2.save();
+      ctx2.translate(p.x, p.y);
+      ctx2.rotate(p.angle);
+      const g = ctx2.createLinearGradient(-p.size, -p.size, p.size, p.size);
+      g.addColorStop(0, "hsla("+p.hue+","+p.sat+"%,"+(p.light + 8)+"%,"+p.alpha+")");
+      g.addColorStop(1, "hsla("+p.hue+","+(p.sat - 12)+"%,"+(p.light - 10)+"%,"+Math.max(0.22, p.alpha - 0.18)+")");
+      ctx2.fillStyle = g;
+      ctx2.beginPath();
+      ctx2.moveTo(0, -p.size);
+      ctx2.bezierCurveTo(p.size * 0.9, -p.size * 0.2, p.size * 0.7, p.size, 0, p.size * 0.85);
+      ctx2.bezierCurveTo(-p.size * 0.7, p.size, -p.size * 0.9, -p.size * 0.2, 0, -p.size);
+      ctx2.fill();
+      ctx2.restore();
+    }
+
+    function step(){
+      ctx2.clearRect(0, 0, w, h);
+      for(let i = 0; i < petals.length; i++){
+        const p = petals[i];
+        p.y += p.speedY;
+        p.x += Math.sin(p.y * 0.02 + p.sway) * 0.45 + p.drift;
+        p.angle += p.rot;
+        if(p.y > h + 20 || p.x < -30 || p.x > w + 30){
+          petals[i] = makePetal(true);
+          petals[i].y = -20;
+        }
+        drawPetal(petals[i]);
+      }
+      animId = requestAnimationFrame(step);
+    }
+
+    function setRunning(run){
+      if(run && !animId) animId = requestAnimationFrame(step);
+      if(!run && animId){ cancelAnimationFrame(animId); animId = 0; }
+    }
+
+    // fade petals out (and stop drawing) once "Our Wedding" comes into view
+    function setAllowed(v){
+      if(v === allowed) return;
+      allowed = v;
+      canvas.classList.toggle("off", !v);
+      clearTimeout(offTimer);
+      if(v) setRunning(!document.hidden);
+      else offTimer = setTimeout(()=>setRunning(false), 1100);
+    }
+    const storySec = $("storySec");
+    if(storySec && "IntersectionObserver" in window){
+      new IntersectionObserver(entries=>{
+        const e = entries[0];
+        setAllowed(!e.isIntersecting && e.boundingClientRect.top > 0);
+      },{rootMargin:"0px 0px -35% 0px"}).observe(storySec);
+    }
+
+    resize();
+    for(let i = 0; i < maxPetals; i++) petals.push(makePetal(false));
+    setRunning(true);
+
+    window.addEventListener("resize", resize, { passive: true });
+    document.addEventListener("visibilitychange", ()=>setRunning(allowed && !document.hidden));
+  })();
+})();
+</script>
+</body>
+</html>
